@@ -1,0 +1,59 @@
+{
+    "name": "php-tool-kit/df",
+    "description": "Data Frame para manipulação de dados.",
+    "type": "library",
+    "keywords": ["data-frame", "data-manipulation"],
+    "readme": "README.md",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Everton da Rosa",
+            "email": "everton3x@gmail.com",
+            "homepage": "https://everton3x.github.io",
+            "role": "developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/php-tool-kit/df/issues",
+        "source": "https://github.com/php-tool-kit/df"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.4.12",
+        "ext-mbstring": "*",
+        "ext-yaml": "*",
+        "ext-json": "*",
+        "php-tool-kit/exception": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "PTK\\DataFrame\\": "src",
+            "PTK\\DataFrame\\Test\\": "tests"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "phpmd/phpmd": "*",
+        "friendsofphp/php-cs-fixer": "*",
+        "squizlabs/php_codesniffer": "*",
+        "ext-fileinfo": "*",
+        "phpstan/phpstan": "0.12.83",
+        "vimeo/psalm": "*"
+    },
+    "scripts": {
+        "dist": [
+            "git add .",
+            "git commit",
+            "git push"
+        ],
+        "phpdoc": "php ./tools/phpDocumentor.phar --config conf/phpdocumentor.xml",
+        "phpunit": "phpunit.bat --configuration conf/phpunit.xml",
+        "psalm": "psalm -c ./conf/psalm.xml",
+        "phpstan": "phpstan analyse -c conf/phpstan.neon",
+        "phpmd": "phpmd src ansi cleancode,codesize,controversial,design,naming,unusedcode",
+        "phpcs": "phpcs -p --standard=PSR12 src",
+        "phpcbf": "phpcbf -p --standard=PSR12 src",
+        "php-cs-fixer": "php-cs-fixer fix --config=conf/php-cs-fixer.php",
+        "phpcpd": "php ./tools/phpcpd.phar --fuzzy src"
+    }
+}

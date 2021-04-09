@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+https://phpunit.readthedocs.io/en/9.5/configuration.html
+-->
+
+
+<phpunit
+    bootstrap="phpunit-bootstrap.php"
+    colors="true"
+    testdox="true"
+    cacheResult="false"
+>
+<!--    <php>
+        <ini name="error_reporting" value="-1" />
+        <ini name="xdebug.mode" value="coverage" />
+        <env name="XDEBUG_MODE" value="coverage" />
+    </php>-->
+    
+    <testsuites>
+        <testsuite name="default">
+            <directory phpVersion="7.4.7" phpVersionOperator=">=" suffix="Test.php">../tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage cacheDirectory="../cache"
+              includeUncoveredFiles="true"
+              processUncoveredFiles="true"
+              pathCoverage="false"
+    >
+        <include>
+            <directory suffix=".php">../src</directory>
+        </include>
+        <report>
+<!--            <clover outputFile="../coverage/clover.xml"/>
+            <crap4j outputFile="../coverage/crap4j.xml" threshold="50"/>-->
+            <html outputDirectory="../coverage/html/" lowUpperBound="50" highLowerBound="90"/>
+<!--            <php outputFile="../coverage/coverage.php"/>
+            <text outputFile="../coverage/coverage.txt" showUncoveredFiles="true" showOnlySummary="true"/>
+            <xml outputDirectory="../coverage/xml"/>-->
+        </report>
+    </coverage>
+    <logging>
+<!--        <junit outputFile="../tests/log/junit.xml"/>
+        <teamcity outputFile="../tests/log/teamcity.txt"/>-->
+        <testdoxHtml outputFile="../tests/log/testdox.html"/>
+<!--        <testdoxText outputFile="../tests/log/testdox.txt"/>
+        <testdoxXml outputFile="../tests/log/testdox.xml"/>
+        <text outputFile="../tests/log/logfile.txt"/>-->
+    </logging>
+</phpunit>
