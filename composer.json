@@ -32,7 +32,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "@stable",
         "phpmd/phpmd": "*",
         "friendsofphp/php-cs-fixer": "*",
         "squizlabs/php_codesniffer": "*",

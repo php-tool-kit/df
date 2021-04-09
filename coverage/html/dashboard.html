@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\Users\Everton\Documents\df\src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/style.css" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">C:\Users\Everton\Documents\df\src</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Reader/CSVReader.php.html#31">PTK\DataFrame\Reader\CSVReader</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reader/FixedWidthFieldReader.php.html#34">PTK\DataFrame\Reader\FixedWidthFieldReader</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Writer/CSVWriter.php.html#34">PTK\DataFrame\Writer\CSVWriter</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Exception/InvalidColumnException.php.html#36">PTK\DataFrame\Exception\InvalidColumnException</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Exception/InvalidDataFrameException.php.html#36">PTK\DataFrame\Exception\InvalidDataFrameException</a></td><td class="text-right">75%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="DataFrame.php.html#577"><abbr title="PTK\DataFrame\DataFrame::sumLines">sumLines</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFrame.php.html#702"><abbr title="PTK\DataFrame\DataFrame::setCell">setCell</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Writer/CSVWriter.php.html#41"><abbr title="PTK\DataFrame\Writer\CSVWriter::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reader/FixedWidthFieldReader.php.html#49"><abbr title="PTK\DataFrame\Reader\FixedWidthFieldReader::read">read</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reader/FixedWidthFieldReader.php.html#41"><abbr title="PTK\DataFrame\Reader\FixedWidthFieldReader::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reader/CSVReader.php.html#46"><abbr title="PTK\DataFrame\Reader\CSVReader::read">read</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reader/CSVReader.php.html#38"><abbr title="PTK\DataFrame\Reader\CSVReader::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Exception/InvalidDataFrameException.php.html#47"><abbr title="PTK\DataFrame\Exception\InvalidDataFrameException::getInvalidLines">getInvalidLines</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Exception/InvalidColumnException.php.html#47"><abbr title="PTK\DataFrame\Exception\InvalidColumnException::getInvalidColName">getInvalidColName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFrame.php.html#689"><abbr title="PTK\DataFrame\DataFrame::getCell">getCell</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFrame.php.html#587"><abbr title="PTK\DataFrame\DataFrame::setColNames">setColNames</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFrame.php.html#678"><abbr title="PTK\DataFrame\DataFrame::goToLine">goToLine</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFrame.php.html#668"><abbr title="PTK\DataFrame\DataFrame::last">last</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFrame.php.html#659"><abbr title="PTK\DataFrame\DataFrame::first">first</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFrame.php.html#650"><abbr title="PTK\DataFrame\DataFrame::previous">previous</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFrame.php.html#641"><abbr title="PTK\DataFrame\DataFrame::next">next</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFrame.php.html#612"><abbr title="PTK\DataFrame\DataFrame::appendCol">appendCol</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFrame.php.html#598"><abbr title="PTK\DataFrame\DataFrame::changeColName">changeColName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Writer/CSVWriter.php.html#49"><abbr title="PTK\DataFrame\Writer\CSVWriter::write">write</abbr></a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 9.2.6</a> using <a href="https://secure.php.net/" target="_top">PHP 7.4.12</a> with <a href="https://xdebug.org/">Xdebug 3.0.3</a> and <a href="https://phpunit.de/">PHPUnit 9.5.4</a> at Fri Apr 9 20:10:30 UTC 2021.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js" type="text/javascript"></script>
+  <script src="_js/d3.min.js" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([3,0,0,0,0,0,0,0,2,0,1,4], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([19,0,0,0,0,0,0,0,0,0,0,29], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[93.95604395604396,94,"<a href=\"DataFrame.php.html#38\">PTK\\DataFrame\\DataFrame<\/a>"],[75,2,"<a href=\"Exception\/InvalidColumnException.php.html#36\">PTK\\DataFrame\\Exception\\InvalidColumnException<\/a>"],[75,2,"<a href=\"Exception\/InvalidDataFrameException.php.html#36\">PTK\\DataFrame\\Exception\\InvalidDataFrameException<\/a>"],[100,2,"<a href=\"Reader\/ArrayReader.php.html#34\">PTK\\DataFrame\\Reader\\ArrayReader<\/a>"],[0,2,"<a href=\"Reader\/CSVReader.php.html#31\">PTK\\DataFrame\\Reader\\CSVReader<\/a>"],[100,1,"<a href=\"Reader\/EmptyDataFrameReader.php.html#34\">PTK\\DataFrame\\Reader\\EmptyDataFrameReader<\/a>"],[0,2,"<a href=\"Reader\/FixedWidthFieldReader.php.html#34\">PTK\\DataFrame\\Reader\\FixedWidthFieldReader<\/a>"],[100,0,"<a href=\"Reader\/PDOReader.php.html#34\">PTK\\DataFrame\\Reader\\PDOReader<\/a>"],[0,2,"<a href=\"Writer\/CSVWriter.php.html#34\">PTK\\DataFrame\\Writer\\CSVWriter<\/a>"],[100,0,"<a href=\"Writer\/PDOWriter.php.html#34\">PTK\\DataFrame\\Writer\\PDOWriter<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,2,"<a href=\"DataFrame.php.html#50\">PTK\\DataFrame\\DataFrame::__construct<\/a>"],[100,1,"<a href=\"DataFrame.php.html#64\">PTK\\DataFrame\\DataFrame::getAsArray<\/a>"],[100,4,"<a href=\"DataFrame.php.html#76\">PTK\\DataFrame\\DataFrame::validateStructure<\/a>"],[100,7,"<a href=\"DataFrame.php.html#103\">PTK\\DataFrame\\DataFrame::detectColTypes<\/a>"],[100,2,"<a href=\"DataFrame.php.html#144\">PTK\\DataFrame\\DataFrame::getColTypes<\/a>"],[100,1,"<a href=\"DataFrame.php.html#160\">PTK\\DataFrame\\DataFrame::colExists<\/a>"],[100,1,"<a href=\"DataFrame.php.html#169\">PTK\\DataFrame\\DataFrame::getColNames<\/a>"],[100,5,"<a href=\"DataFrame.php.html#179\">PTK\\DataFrame\\DataFrame::getCols<\/a>"],[100,4,"<a href=\"DataFrame.php.html#209\">PTK\\DataFrame\\DataFrame::getLines<\/a>"],[100,1,"<a href=\"DataFrame.php.html#240\">PTK\\DataFrame\\DataFrame::reindex<\/a>"],[100,3,"<a href=\"DataFrame.php.html#258\">PTK\\DataFrame\\DataFrame::getLinesByRange<\/a>"],[100,5,"<a href=\"DataFrame.php.html#278\">PTK\\DataFrame\\DataFrame::mergeCols<\/a>"],[100,4,"<a href=\"DataFrame.php.html#313\">PTK\\DataFrame\\DataFrame::mergeLines<\/a>"],[100,2,"<a href=\"DataFrame.php.html#340\">PTK\\DataFrame\\DataFrame::removeLines<\/a>"],[100,5,"<a href=\"DataFrame.php.html#354\">PTK\\DataFrame\\DataFrame::removeCols<\/a>"],[100,11,"<a href=\"DataFrame.php.html#377\">PTK\\DataFrame\\DataFrame::sort<\/a>"],[100,4,"<a href=\"DataFrame.php.html#428\">PTK\\DataFrame\\DataFrame::filter<\/a>"],[100,3,"<a href=\"DataFrame.php.html#457\">PTK\\DataFrame\\DataFrame::seek<\/a>"],[100,8,"<a href=\"DataFrame.php.html#477\">PTK\\DataFrame\\DataFrame::getDuplicatedLines<\/a>"],[100,2,"<a href=\"DataFrame.php.html#522\">PTK\\DataFrame\\DataFrame::applyOnLines<\/a>"],[100,3,"<a href=\"DataFrame.php.html#538\">PTK\\DataFrame\\DataFrame::applyOnCols<\/a>"],[100,3,"<a href=\"DataFrame.php.html#557\">PTK\\DataFrame\\DataFrame::sumCol<\/a>"],[0,1,"<a href=\"DataFrame.php.html#577\">PTK\\DataFrame\\DataFrame::sumLines<\/a>"],[0,1,"<a href=\"DataFrame.php.html#587\">PTK\\DataFrame\\DataFrame::setColNames<\/a>"],[0,1,"<a href=\"DataFrame.php.html#598\">PTK\\DataFrame\\DataFrame::changeColName<\/a>"],[0,1,"<a href=\"DataFrame.php.html#612\">PTK\\DataFrame\\DataFrame::appendCol<\/a>"],[100,1,"<a href=\"DataFrame.php.html#621\">PTK\\DataFrame\\DataFrame::countLines<\/a>"],[100,1,"<a href=\"DataFrame.php.html#632\">PTK\\DataFrame\\DataFrame::current<\/a>"],[0,1,"<a href=\"DataFrame.php.html#641\">PTK\\DataFrame\\DataFrame::next<\/a>"],[0,1,"<a href=\"DataFrame.php.html#650\">PTK\\DataFrame\\DataFrame::previous<\/a>"],[0,1,"<a href=\"DataFrame.php.html#659\">PTK\\DataFrame\\DataFrame::first<\/a>"],[0,1,"<a href=\"DataFrame.php.html#668\">PTK\\DataFrame\\DataFrame::last<\/a>"],[0,1,"<a href=\"DataFrame.php.html#678\">PTK\\DataFrame\\DataFrame::goToLine<\/a>"],[0,1,"<a href=\"DataFrame.php.html#689\">PTK\\DataFrame\\DataFrame::getCell<\/a>"],[0,1,"<a href=\"DataFrame.php.html#702\">PTK\\DataFrame\\DataFrame::setCell<\/a>"],[100,1,"<a href=\"Exception\/InvalidColumnException.php.html#40\">PTK\\DataFrame\\Exception\\InvalidColumnException::__construct<\/a>"],[0,1,"<a href=\"Exception\/InvalidColumnException.php.html#47\">PTK\\DataFrame\\Exception\\InvalidColumnException::getInvalidColName<\/a>"],[100,1,"<a href=\"Exception\/InvalidDataFrameException.php.html#40\">PTK\\DataFrame\\Exception\\InvalidDataFrameException::__construct<\/a>"],[0,1,"<a href=\"Exception\/InvalidDataFrameException.php.html#47\">PTK\\DataFrame\\Exception\\InvalidDataFrameException::getInvalidLines<\/a>"],[100,1,"<a href=\"Reader\/ArrayReader.php.html#43\">PTK\\DataFrame\\Reader\\ArrayReader::__construct<\/a>"],[100,1,"<a href=\"Reader\/ArrayReader.php.html#47\">PTK\\DataFrame\\Reader\\ArrayReader::read<\/a>"],[0,1,"<a href=\"Reader\/CSVReader.php.html#38\">PTK\\DataFrame\\Reader\\CSVReader::__construct<\/a>"],[0,1,"<a href=\"Reader\/CSVReader.php.html#46\">PTK\\DataFrame\\Reader\\CSVReader::read<\/a>"],[100,1,"<a href=\"Reader\/EmptyDataFrameReader.php.html#36\">PTK\\DataFrame\\Reader\\EmptyDataFrameReader::read<\/a>"],[0,1,"<a href=\"Reader\/FixedWidthFieldReader.php.html#41\">PTK\\DataFrame\\Reader\\FixedWidthFieldReader::__construct<\/a>"],[0,1,"<a href=\"Reader\/FixedWidthFieldReader.php.html#49\">PTK\\DataFrame\\Reader\\FixedWidthFieldReader::read<\/a>"],[0,1,"<a href=\"Writer\/CSVWriter.php.html#41\">PTK\\DataFrame\\Writer\\CSVWriter::__construct<\/a>"],[0,1,"<a href=\"Writer\/CSVWriter.php.html#49\">PTK\\DataFrame\\Writer\\CSVWriter::write<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

@@ -27,17 +27,10 @@
 namespace PTK\DataFrame\Reader;
 
 /**
- * Cria um data frame a partir de alguma fonte de dados.
+ * Description of PDOReader
  *
  * @author Everton
  */
-interface ReaderInterface
-{
-    
-    /**
-     * 
-     * @return array<mixed> Retorna um array no formato 
-     * $data = [linha (int)][coluna (string)] = valor (mixed).
-     */
-    public function read(): array;
+class PDOReader {
+    //put your code here
 }

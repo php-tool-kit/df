@@ -24,20 +24,13 @@
  * THE SOFTWARE.
  */
 
-namespace PTK\DataFrame\Reader;
+namespace PTK\DataFrame\Writer;
 
 /**
- * Cria um data frame a partir de alguma fonte de dados.
+ * Description of PDOWriter
  *
  * @author Everton
  */
-interface ReaderInterface
-{
-    
-    /**
-     * 
-     * @return array<mixed> Retorna um array no formato 
-     * $data = [linha (int)][coluna (string)] = valor (mixed).
-     */
-    public function read(): array;
+class PDOWriter {
+    //put your code here
 }

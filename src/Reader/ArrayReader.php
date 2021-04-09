@@ -27,17 +27,25 @@
 namespace PTK\DataFrame\Reader;
 
 /**
- * Cria um data frame a partir de alguma fonte de dados.
+ * Reader para dados já no formato array.
  *
  * @author Everton
  */
-interface ReaderInterface
-{
+class ArrayReader implements ReaderInterface {
+    
+    private array $data = [];
     
     /**
+     * Observe que nenhum teste de integridade da estrutura do array é feito. Isso será feito por PTK\DataFrame\DataFrame quando self::reade() for utilizado.
      * 
-     * @return array<mixed> Retorna um array no formato 
-     * $data = [linha (int)][coluna (string)] = valor (mixed).
+     * @param array<mixed> $data Array no formato $data = [linha (int)][coluna (string)] = valor (mixed)
      */
-    public function read(): array;
+    public function __construct(array $data) {
+        $this->data = $data;
+    }
+    
+    public function read(): array {
+        return $this->data;
+    }
+
 }

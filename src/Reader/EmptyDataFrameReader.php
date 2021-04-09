@@ -27,17 +27,15 @@
 namespace PTK\DataFrame\Reader;
 
 /**
- * Cria um data frame a partir de alguma fonte de dados.
+ * Cria um data frame vazio.
  *
  * @author Everton
  */
-interface ReaderInterface
-{
+class EmptyDataFrameReader implements ReaderInterface {
     
-    /**
-     * 
-     * @return array<mixed> Retorna um array no formato 
-     * $data = [linha (int)][coluna (string)] = valor (mixed).
-     */
-    public function read(): array;
+    public function read(): array
+    {
+        return  [];
+    }
+
 }

@@ -24,20 +24,26 @@
  * THE SOFTWARE.
  */
 
-namespace PTK\DataFrame\Reader;
+namespace PTK\DataFrame\Test;
+
+use PHPUnit\Framework\TestCase;
+use PTK\DataFrame\Reader\ArrayReader;
 
 /**
- * Cria um data frame a partir de alguma fonte de dados.
+ * Tests for ArrayReader
  *
  * @author Everton
  */
-interface ReaderInterface
-{
+class ArrayReaderTest extends TestCase {
+    use TestToolsTrait;
     
-    /**
-     * 
-     * @return array<mixed> Retorna um array no formato 
-     * $data = [linha (int)][coluna (string)] = valor (mixed).
-     */
-    public function read(): array;
+    public function testInstanceCreation()
+    {
+        $this->assertInstanceOf(ArrayReader::class, new ArrayReader([]));
+    }
+    public function testReadSuccess()
+    {
+        $reader = new ArrayReader($this->arraySample);
+        $this->assertEquals($this->arraySample, $reader->read());
+    }
 }

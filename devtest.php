@@ -1,5 +1,9 @@
 <?php
 
+use PTK\DataFrame\DataFrame;
+use PTK\DataFrame\Exception\InvalidDataFrameException;
+use PTK\DataFrame\Reader\ArrayReader;
+
 /*
  * The MIT License
  *
@@ -24,20 +28,44 @@
  * THE SOFTWARE.
  */
 
-namespace PTK\DataFrame\Reader;
-
 /**
- * Cria um data frame a partir de alguma fonte de dados.
- *
- * @author Everton
+ * Arquivo para testes durante o desenvolvimento.
  */
-interface ReaderInterface
-{
+require 'vendor/autoload.php';
+try {
+    $reader = new ArrayReader(
+            [
+        [
+            'id' => 1,
+            'name' => 'John',
+            'age' => 33,
+            'sex' => 'M'
+        ],
+        [
+            'id' => 2,
+            'name' => 'Mary',
+            'age' => 21,
+            'sex' => 'F'
+        ],
+        [
+            'id' => 3,
+            'name' => 'Paul',
+            'age' => 58,
+            'sex' => 'M'
+        ]
+            ]
+    );
+
+    $reader = new ArrayReader([['colname' => 0]]);
     
-    /**
-     * 
-     * @return array<mixed> Retorna um array no formato 
-     * $data = [linha (int)][coluna (string)] = valor (mixed).
-     */
-    public function read(): array;
+    $df = new DataFrame($reader);
+
+    print_r($df->getAsArray());
+}
+catch (InvalidDataFrameException $ex){
+    echo $ex->getTraceAsString();
+    print_r($ex->getInvalidLines());
+}
+catch (Exception $ex) {
+    echo $ex->getTraceAsString();
 }

@@ -26,7 +26,6 @@
 
 namespace PTK\DataFrame\Exception;
 
-use PTK\Exception\ResourceException\InvalidResourceException;
 use Throwable;
 
 /**
@@ -34,10 +33,19 @@ use Throwable;
  *
  * @author Everton
  */
-class InvalidDataFrameException extends InvalidResourceException
+class InvalidDataFrameException extends \Exception
 {
-    public function __construct(string $message = '', int $code = 0, Throwable $previous = null)
+    protected array $lines = [];
+    
+    public function __construct(array $lines, string $message = '', int $code = 0, Throwable $previous = null)
     {
-        parent::__construct('strutcture data frame', $message, $code, $previous);
+        parent::__construct($message, $code, $previous);
+        
+        $this->lines = $lines;
+    }
+    
+    public function getInvalidLines(): array
+    {
+        return $this->lines;
     }
 }

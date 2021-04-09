@@ -24,20 +24,28 @@
  * THE SOFTWARE.
  */
 
-namespace PTK\DataFrame\Reader;
+namespace PTK\DataFrame\Exception;
+
+use Throwable;
 
 /**
- * Cria um data frame a partir de alguma fonte de dados.
+ * Quando um data frame tem sua estrutura inválida.
  *
  * @author Everton
  */
-interface ReaderInterface
+class InvalidColumnException extends \Exception
 {
+    protected string $colName = '';
     
-    /**
-     * 
-     * @return array<mixed> Retorna um array no formato 
-     * $data = [linha (int)][coluna (string)] = valor (mixed).
-     */
-    public function read(): array;
+    public function __construct(string $colName, string $message = '', int $code = 0, Throwable $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+        
+        $this->colName = $colName;
+    }
+    
+    public function getInvalidColName(): string
+    {
+        return $this->colName;
+    }
 }

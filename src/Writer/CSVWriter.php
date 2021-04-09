@@ -33,7 +33,7 @@ use PTK\DataFrame\DataFrame;
  */
 class CSVWriter implements WriterInterface
 {
-    private DataFrame $df = '';
+    private DataFrame $df;
     private string $filename = '';
     private string $separator = '';
     private bool $hasHeader = true;
