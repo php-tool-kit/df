@@ -36,12 +36,13 @@ use PTK\Exception\ResourceException\ResourceNotFoundException;
  *
  * @author Everton
  */
-class FWFReaderTest extends TestCase {
+class FWFReaderTest extends TestCase
+{
     use TestToolsTrait;
-    
+
     public function testReaderDefault()
     {
-        $reader = new FixedWidthFieldReader('tests/assets/example.fwf', true, 0, 2 ,7 , 3, 3);
+        $reader = new FixedWidthFieldReader('tests/assets/example.fwf', true, 0, 2, 7, 3, 3);
         $this->assertInstanceOf(FixedWidthFieldReader::class, $reader);
         $this->assertEquals([
             [
@@ -64,10 +65,10 @@ class FWFReaderTest extends TestCase {
             ]
         ], $reader->read());
     }
-    
+
     public function testReaderNoHeader()
     {
-        $reader = new FixedWidthFieldReader('tests/assets/example-no-header.fwf', false, 0, 2 ,7 , 3, 3);
+        $reader = new FixedWidthFieldReader('tests/assets/example-no-header.fwf', false, 0, 2, 7, 3, 3);
         $this->assertInstanceOf(FixedWidthFieldReader::class, $reader);
         $this->assertEquals([
             [
@@ -90,10 +91,10 @@ class FWFReaderTest extends TestCase {
             ]
         ], $reader->read());
     }
-    
+
     public function testReaderSkipLines()
     {
-        $reader = new FixedWidthFieldReader('tests/assets/example-skip-lines.fwf', true, 3, 2 ,7 , 3, 3);
+        $reader = new FixedWidthFieldReader('tests/assets/example-skip-lines.fwf', true, 3, 2, 7, 3, 3);
         $this->assertInstanceOf(FixedWidthFieldReader::class, $reader);
         $this->assertEquals([
             [
@@ -116,13 +117,13 @@ class FWFReaderTest extends TestCase {
             ]
         ], $reader->read());
     }
-    
+
     public function testFileNotFound()
     {
         $this->expectException(ResourceNotFoundException::class);
-        $reader = new FixedWidthFieldReader('tests/assets/notfound.fwf', true, 0, 2 ,7 , 3, 3);
+        $reader = new FixedWidthFieldReader('tests/assets/notfound.fwf', true, 0, 2, 7, 3, 3);
     }
-    
+
     /*public function testInvalidFile()
     {
         $this->expectException(InvalidResourceException::class);

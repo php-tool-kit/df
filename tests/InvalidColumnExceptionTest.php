@@ -36,17 +36,18 @@ use PTK\DataFrame\Reader\ArrayReader;
  *
  * @author Everton
  */
-class InvalidColumnExceptionTest extends TestCase {
+class InvalidColumnExceptionTest extends TestCase
+{
     use TestToolsTrait;
-    
-    public function testGetInvalidColName(){
+
+    public function testGetInvalidColName()
+    {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        try{
+        try {
             $df->detectColTypes('unknow');
         } catch (InvalidColumnException $ex) {
             $this->assertEquals('unknow', $ex->getInvalidColName());
         }
-        
     }
 }

@@ -36,19 +36,20 @@ use PTK\Exception\ResourceException\InvalidResourceException;
  *
  * @author Everton
  */
-class CSVReaderTest extends TestCase {
+class CSVReaderTest extends TestCase
+{
     use TestToolsTrait;
-    
+
     public function testReaderDefault()
     {
-        $reader = new CSVReader('tests/assets/example.csv', ';', true);
+        $reader = new CSVReader(fopen('tests/assets/example.csv', 'r'), ';', true);
         $this->assertInstanceOf(CSVReader::class, $reader);
         $this->assertEquals($this->arraySample, $reader->read());
     }
-    
+
     public function testReaderNoHeader()
     {
-        $reader = new CSVReader('tests/assets/example-no-header.csv', ';', false);
+        $reader = new CSVReader(fopen('tests/assets/example-no-header.csv', 'r'), ';', false);
         $this->assertInstanceOf(CSVReader::class, $reader);
         $this->assertEquals([
             [
@@ -70,23 +71,11 @@ class CSVReaderTest extends TestCase {
             ]
         ], $reader->read());
     }
-    
+
     public function testReaderSkipLines()
     {
-        $reader = new CSVReader('tests/assets/example-skip-lines.csv', ';', true, 4);
+        $reader = new CSVReader(fopen('tests/assets/example-skip-lines.csv', 'r'), ';', true, 4);
         $this->assertInstanceOf(CSVReader::class, $reader);
         $this->assertEquals($this->arraySample, $reader->read());
     }
-    
-    public function testFileNotFound()
-    {
-        $this->expectException(ResourceNotFoundException::class);
-        $reader = new CSVReader('tests/assets/notfound.csv', ';', true);
-    }
-    
-    /*public function testInvalidFile()
-    {
-        $this->expectException(InvalidResourceException::class);
-        $reader = new CSVReader('tests/assets/', ';', true);
-    }*/
 }

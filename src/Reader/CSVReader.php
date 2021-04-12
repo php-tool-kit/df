@@ -39,7 +39,6 @@ use function sizeof;
 
 class CSVReader implements ReaderInterface
 {
-    private string $filename = '';
     private string $separator = '';
     private bool $hasHeader = true;
     private int $skipLines = 0;
@@ -48,48 +47,22 @@ class CSVReader implements ReaderInterface
 
     /**
      *
-     * @param string $filename Caminho para o arquivo CSV.
+     * @param resource $handle O resource fornecido por fopen().
      * @param string $separator O separador utilizado.
      * @param bool $hasHeader True se possui linha de cabeçalho.
      * @param int $skipLines Número de linhas para pular no início do arquivo.
      */
-    public function __construct(string $filename, string $separator, bool $hasHeader, int $skipLines = 0)
+    public function __construct($handle, string $separator, bool $hasHeader, int $skipLines = 0)
     {
-        $this->filename = $filename;
+        $this->handle = $handle;
         $this->separator = $separator;
         $this->hasHeader = $hasHeader;
         $this->skipLines = $skipLines;
-
-        $this->open();
-    }
-
-    /**
-     * @return void
-     * @throws ResourceNotFoundException
-     * @throws InvalidResourceException
-     */
-    protected function open(): void
-    {
-        if (!file_exists($this->filename)) {
-            throw new ResourceNotFoundException($this->filename);
-        }
-
-        $handle = fopen($this->filename, 'r');
-
-        if (!$handle) {
-            throw new InvalidResourceException($this->filename);
-        }
-
-        $this->handle = $handle;
     }
 
     public function read(): array
     {
-        if ($this->skipLines > 0) {
-            for ($i = 0; $i < $this->skipLines; $i++) {
-                fgets($this->handle);
-            }
-        }
+        $this->skipLines();
 
         $header = [];
         if ($this->hasHeader === true) {
@@ -101,14 +74,7 @@ class CSVReader implements ReaderInterface
             // @codeCoverageIgnoreEnd
         }
 
-        $buffer = true;
-        $data = [];
-        while ($buffer !== false) {
-            $buffer = fgetcsv($this->handle, 0, $this->separator);
-            if ($buffer != false) {
-                $data[] = $buffer;
-            }
-        }
+        $data = $this->parse();
 
         if ($header === []) {
             $numCols = sizeof($data[array_key_first($data)]);
@@ -126,5 +92,36 @@ class CSVReader implements ReaderInterface
         }
 
         return $data;
+    }
+
+    /**
+     *
+     * @return array<mixed>
+     */
+    protected function parse(): array
+    {
+        $buffer = true;
+        $data = [];
+        while ($buffer !== false) {
+            $buffer = fgetcsv($this->handle, 0, $this->separator);
+            if ($buffer != false) {
+                $data[] = $buffer;
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     *
+     * @return void
+     */
+    protected function skipLines(): void
+    {
+        if ($this->skipLines > 0) {
+            for ($i = 0; $i < $this->skipLines; $i++) {
+                fgets($this->handle);
+            }
+        }
     }
 }

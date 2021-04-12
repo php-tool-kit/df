@@ -31,9 +31,10 @@ namespace PTK\DataFrame\Test;
  *
  * @author Everton
  */
-class PDOReaderTest extends \PHPUnit\Framework\TestCase {
+class PDOReaderTest extends \PHPUnit\Framework\TestCase
+{
     use TestToolsTrait;
-    
+
     public function testReader()
     {
         $pdo = new \PDO('sqlite:tests/assets/example.sqlite');

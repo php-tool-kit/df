@@ -4,9 +4,10 @@
 //require_once './vendor/autoload.php';
 
 $finder = PhpCsFixer\Finder::create()
-//        ->exclude('')
+        ->exclude('/tests/assets/')
 //        ->notPath('')
         ->in('src/')
+        ->in('tests/')
 ;
 
 $config = new PhpCsFixer\Config();

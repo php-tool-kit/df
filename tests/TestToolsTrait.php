@@ -28,11 +28,11 @@ namespace PTK\DataFrame\Test;
 
 /**
  * Ferramentas para os testes.
- * 
+ *
  * @author Everton
  */
-trait TestToolsTrait {
-    
+trait TestToolsTrait
+{
     protected array $arraySample = [
         [
             'id' => 1,
@@ -72,7 +72,7 @@ trait TestToolsTrait {
             'age' => 58
         ],
     ];
-    
+
     protected array $otherSample = [
         [
             'score' => 50
@@ -84,7 +84,7 @@ trait TestToolsTrait {
             'score' => 98
         ],
     ];
-    
+
     protected array $anExample = [
         [
             'good' => 0

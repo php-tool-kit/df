@@ -37,10 +37,12 @@ use PTK\DataFrame\Writer\CSVWriter;
  *
  * @author Everton
  */
-class CSVWriterTest extends TestCase {
+class CSVWriterTest extends TestCase
+{
     use TestToolsTrait;
-    
-    public function testWriterDefault() {
+
+    public function testWriterDefault()
+    {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $csv = 'tests/assets/cache/example.csv';
@@ -50,8 +52,9 @@ class CSVWriterTest extends TestCase {
         $reader = new CSVReader($csv, ';', true);
         $this->assertEquals($this->arraySample, $reader->read());
     }
-    
-    public function testWriterNoHeader() {
+
+    public function testWriterNoHeader()
+    {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $csv = 'tests/assets/cache/example-no-header.csv';
@@ -79,19 +82,20 @@ class CSVWriterTest extends TestCase {
             ]
         ], $reader->read());
     }
-    
-    public function testWriterAppend() {
+
+    public function testWriterAppend()
+    {
         $csv = 'tests/assets/cache/example-append.csv';
-        if(file_exists($csv)){
+        if (file_exists($csv)) {
             unlink($csv);
         }
-        
+
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        
+
         $writer = new CSVWriter($df, $csv, ';', true);
         $writer->write();
-        
+
         $reader = new ArrayReader([
             [
                 'id' => 4,
@@ -101,10 +105,10 @@ class CSVWriterTest extends TestCase {
             ]
         ]);
         $df = new DataFrame($reader);
-        
+
         $writer = new CSVWriter($df, $csv, ';', false, true);
         $writer->write();
-        
+
         $reader = new CSVReader($csv, ';', true);
         $this->assertEquals([
             [

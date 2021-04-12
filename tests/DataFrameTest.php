@@ -41,14 +41,15 @@ use PTK\DataFrame\Reader\EmptyDataFrameReader;
  *
  * @author Everton
  */
-class DataFrameTest extends TestCase {
+class DataFrameTest extends TestCase
+{
     use TestToolsTrait;
-    
+
     public function testInstanceCreationWithEmptyDataFrame()
     {
         $this->assertInstanceOf(DataFrame::class, new DataFrame(new EmptyDataFrameReader()));
     }
-    
+
     public function testInstanceCreationSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -56,14 +57,14 @@ class DataFrameTest extends TestCase {
         $this->assertInstanceOf(DataFrame::class, $df);
         $this->assertEquals($this->arraySample, $df->getAsArray());
     }
-    
+
     public function testInstanceCreationFails()
     {
         $reader = new ArrayReader($this->arraySampleInvalid);
         $this->expectException(InvalidDataFrameException::class);
         $df = new DataFrame($reader);
     }
-    
+
     public function testColTypesDetection()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -71,7 +72,7 @@ class DataFrameTest extends TestCase {
         $this->assertEquals(['integer' => 2, 'string' => 1], $df->detectColTypes('age'));
         $this->assertEquals(['integer' => 1, 'string' => 1], $df->detectColTypes('age', 2));
     }
-    
+
     public function testColTypesDetectionFailsColUnknow()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -79,7 +80,7 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidColumnException::class);
         $df->detectColTypes('unknow');
     }
-    
+
     public function testColTypesDetectionFailsLinesInvalid()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -87,7 +88,7 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidArgumentException::class);
         $df->detectColTypes('age', 0);
     }
-    
+
     public function testGetColTypes()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -102,28 +103,28 @@ class DataFrameTest extends TestCase {
             $df->getColTypes()
         );
     }
-    
+
     public function testColExistsSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $this->assertTrue($df->colExists('age'));
     }
-    
+
     public function testColExistsFails()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $this->assertFalse($df->colExists('unknow'));
     }
-    
+
     public function testGetColNames()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $this->assertEquals(array_keys($this->arraySample[0]), $df->getColNames());
     }
-    
+
     public function testGetColsSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -148,7 +149,7 @@ class DataFrameTest extends TestCase {
             $dff->getAsArray()
         );
     }
-    
+
     public function testGetColsFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -156,7 +157,7 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidColumnException::class);
         $dff = $df->getCols('id', 'unknow');
     }
-    
+
     public function testGetLinesSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -181,16 +182,16 @@ class DataFrameTest extends TestCase {
             $dff->getAsArray()
         );
     }
-    
+
     public function testGetLinesEmpty()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $dff = $df->getLines(9);
         $this->assertInstanceOf(DataFrame::class, $dff);
-        $this->assertEquals([],$dff->getAsArray());
+        $this->assertEquals([], $dff->getAsArray());
     }
-    
+
     public function testReindexSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -215,7 +216,7 @@ class DataFrameTest extends TestCase {
             $dff->getAsArray()
         );
     }
-    
+
     public function testGetLinesByRangeFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -223,7 +224,7 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidArgumentException::class);
         $dff = $df->getLinesByRange(2, 1);
     }
-    
+
     public function testGetLinesByRangeSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -248,7 +249,7 @@ class DataFrameTest extends TestCase {
             $dff->getAsArray()
         );
     }
-    
+
     public function testMergeColsSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -288,7 +289,7 @@ class DataFrameTest extends TestCase {
             $df->getAsArray()
         );
     }
-    
+
     public function testMergeColsFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -307,7 +308,7 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidDataFrameException::class);
         $df->mergeCols($df1);
     }
-    
+
     public function testMergeLinesSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -367,7 +368,7 @@ class DataFrameTest extends TestCase {
             $df->getAsArray()
         );
     }
-    
+
     public function testMergeLinesFail()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -383,7 +384,7 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidColumnException::class);
         $df->mergeLines($df1);
     }
-    
+
     public function testRemoveLinesSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -401,13 +402,14 @@ class DataFrameTest extends TestCase {
             $df->getAsArray()
         );
     }
-    
+
     public function testRemoveColsSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $this->assertInstanceOf(DataFrame::class, $df->removeCols('age', 'sex'));
-        $this->assertEquals([
+        $this->assertEquals(
+            [
                 [
                     'id' => 1,
                     'name' => 'John'
@@ -424,7 +426,7 @@ class DataFrameTest extends TestCase {
             $df->getAsArray()
         );
     }
-    
+
     public function testRemoveColsFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -432,7 +434,7 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidColumnException::class);
         $df->removeCols('age', 'unknow');
     }
-    
+
     public function testSortingSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -441,7 +443,8 @@ class DataFrameTest extends TestCase {
             'sex' => 'asc',
             'id' => 'desc'
         ]));
-        $this->assertEquals([
+        $this->assertEquals(
+            [
                 [
                     'id' => 2,
                     'name' => 'Mary',
@@ -464,7 +467,7 @@ class DataFrameTest extends TestCase {
             $df->getAsArray()
         );
     }
-    
+
     public function testSortingColNameUnknowFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -475,7 +478,7 @@ class DataFrameTest extends TestCase {
             'id' => 'desc'
         ]);
     }
-    
+
     public function testSortingSortFlagInvalidFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -486,19 +489,20 @@ class DataFrameTest extends TestCase {
             'id' => 'desc'
         ]);
     }
-    
+
     public function testFilterSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $dff = $df->filter(function($data): bool {
-            if($data['age'] == 21){
+        $dff = $df->filter(function ($data): bool {
+            if ($data['age'] == 21) {
                 return true;
             }
             return false;
         });
         $this->assertInstanceOf(DataFrame::class, $dff);
-        $this->assertEquals([
+        $this->assertEquals(
+            [
                 1 => [
                     'id' => 2,
                     'name' => 'Mary',
@@ -509,47 +513,47 @@ class DataFrameTest extends TestCase {
             $dff->getAsArray()
         );
     }
-    
+
     public function testFilterEmpty()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $dff = $df->filter(function($data): bool {
-            if($data['age'] == 22){
+        $dff = $df->filter(function ($data): bool {
+            if ($data['age'] == 22) {
                 return true;
             }
             return false;
         });
         $this->assertInstanceOf(DataFrame::class, $dff);
-        $this->assertEquals([],$dff->getAsArray());
+        $this->assertEquals([], $dff->getAsArray());
     }
-    
+
     public function testSeekSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $seek = $df->seek(function($data): bool {
-            if($data['age'] == 21){
+        $seek = $df->seek(function ($data): bool {
+            if ($data['age'] == 21) {
                 return true;
             }
             return false;
         });
-        $this->assertEquals([1],$seek);
+        $this->assertEquals([1], $seek);
     }
-    
+
     public function testSeekEmpty()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $seek = $df->seek(function($data): bool {
-            if($data['age'] == 22){
+        $seek = $df->seek(function ($data): bool {
+            if ($data['age'] == 22) {
                 return true;
             }
             return false;
         });
-        $this->assertEquals([],$seek);
+        $this->assertEquals([], $seek);
     }
-    
+
     public function testDuplicatedSuccess()
     {
         $reader = new ArrayReader($this->duplicatedSample);
@@ -557,7 +561,7 @@ class DataFrameTest extends TestCase {
         $duplicated = $df->getDuplicatedLines('name', 'age', 'sex');
         $this->assertEquals([1, 3], $duplicated);
     }
-    
+
     public function testDuplicatedEmpty()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -565,7 +569,7 @@ class DataFrameTest extends TestCase {
         $duplicated = $df->getDuplicatedLines('name', 'age', 'sex');
         $this->assertEquals([], $duplicated);
     }
-    
+
     public function testDuplicatedFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -573,16 +577,17 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidColumnException::class);
         $duplicated = $df->getDuplicatedLines('name', 'age', 'unknow');
     }
-    
+
     public function testApplyFunctionOnLinesSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $this->assertInstanceOf(DataFrame::class, $df->applyOnLines(function($line){
+        $this->assertInstanceOf(DataFrame::class, $df->applyOnLines(function ($line) {
             $line['age'] += 10;
             return $line;
         }));
-        $this->assertEquals([
+        $this->assertEquals(
+            [
                 [
                     'id' => 1,
                     'name' => 'John',
@@ -605,15 +610,16 @@ class DataFrameTest extends TestCase {
             $df->getAsArray()
         );
     }
-    
+
     public function testApplyFunctionOnColsSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $this->assertInstanceOf(DataFrame::class, $df->applyOnCols('sex', function($cell){
+        $this->assertInstanceOf(DataFrame::class, $df->applyOnCols('sex', function ($cell) {
             return strtolower($cell);
         }));
-        $this->assertEquals([
+        $this->assertEquals(
+            [
                 [
                     'id' => 1,
                     'name' => 'John',
@@ -636,17 +642,17 @@ class DataFrameTest extends TestCase {
             $df->getAsArray()
         );
     }
-    
+
     public function testApplyFunctionOnColsFails()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $this->expectException(InvalidColumnException::class);
-        $df->applyOnCols('unknow', function($cell){
+        $df->applyOnCols('unknow', function ($cell) {
             return strtolower($cell);
         });
     }
-    
+
     public function testSumColFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -654,19 +660,19 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidColumnException::class);
         $df->sumCol('unknow');
     }
-    
+
     public function testSumColSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $this->assertEquals(112,$df->sumCol('age'));
+        $this->assertEquals(112, $df->sumCol('age'));
     }
 
     public function testSumLinesSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $this->assertEquals([34, 23, 61],$df->sumLines('id', 'age'));
+        $this->assertEquals([34, 23, 61], $df->sumLines('id', 'age'));
     }
 
     public function testSumLinesFails()
@@ -676,7 +682,7 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidColumnException::class);
         $df->sumLines('unknow');
     }
-    
+
     public function testSetColNamesFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -684,7 +690,7 @@ class DataFrameTest extends TestCase {
         $this->expectException(LengthException::class);
         $df->setColNames('cod', 'nome', 'idade');
     }
-    
+
     public function testSetColNamesSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -693,7 +699,7 @@ class DataFrameTest extends TestCase {
         $this->assertInstanceOf(DataFrame::class, $df->setColNames(...$newColNames));
         $this->assertEquals($newColNames, $df->getColNames());
     }
-    
+
     public function testSetPartialColNamesSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -702,7 +708,7 @@ class DataFrameTest extends TestCase {
         $this->assertInstanceOf(DataFrame::class, $df->setColNames(...$newColNames));
         $this->assertEquals($newColNames, $df->getColNames());
     }
-    
+
     public function testChangeColNameFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -710,7 +716,7 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidColumnException::class);
         $df->changeColName('unknow', 'newCol');
     }
-    
+
     public function testChangeColNameSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -718,12 +724,15 @@ class DataFrameTest extends TestCase {
         $this->assertInstanceOf(DataFrame::class, $df->changeColName('name', 'nome'));
         $this->assertEquals(['id', 'nome', 'age', 'sex'], $df->getColNames());
     }
-    
+
     public function testAppendColSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $this->assertInstanceOf(DataFrame::class, $df->appendCol('email', ['john@mail.com', 'mary@mail.com', 'paul@mail.com']));
+        $this->assertInstanceOf(
+            DataFrame::class,
+            $df->appendCol('email', ['john@mail.com', 'mary@mail.com', 'paul@mail.com'])
+        );
         $this->assertEquals([
             [
                 'id' => 1,
@@ -748,7 +757,7 @@ class DataFrameTest extends TestCase {
             ]
         ], $df->getAsArray());
     }
-    
+
     public function testReplaceColSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -775,7 +784,7 @@ class DataFrameTest extends TestCase {
             ]
         ], $df->getAsArray());
     }
-    
+
     public function testAppendColWithDiffLineNumbersFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -783,7 +792,7 @@ class DataFrameTest extends TestCase {
         $this->expectException(LengthException::class);
         $df->appendCol('email', ['john@mail.com', 'mary@mail.com']);
     }
-    
+
     public function testAppendColWithInvalidKeyOnNewColFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -791,12 +800,12 @@ class DataFrameTest extends TestCase {
         $this->expectException(OutOfBoundsException::class);
         $df->appendCol('email', [0 => 'john@mail.com', 1 => 'mary@mail.com', 3 => 'paul@mail.com']);
     }
-    
+
     public function testNext()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        
+
         $this->assertEquals([
             'id' => 2,
             'name' => 'Mary',
@@ -811,7 +820,7 @@ class DataFrameTest extends TestCase {
         ], $df->next());
         $this->assertFalse($df->next());
     }
-    
+
     public function testPrevious()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -832,7 +841,7 @@ class DataFrameTest extends TestCase {
         ], $df->previous());
         $this->assertFalse($df->previous());
     }
-    
+
     public function testFirst()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -846,7 +855,7 @@ class DataFrameTest extends TestCase {
             'sex' => 'M'
         ], $df->first());
     }
-    
+
     public function testLast()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -858,7 +867,7 @@ class DataFrameTest extends TestCase {
             'sex' => 'M'
         ], $df->last());
     }
-    
+
     public function testGoToLineSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -870,7 +879,7 @@ class DataFrameTest extends TestCase {
             'sex' => 'F'
         ], $df->goToLine(1));
     }
-    
+
     public function testGoToLineFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -878,14 +887,14 @@ class DataFrameTest extends TestCase {
         $this->expectException(OutOfBoundsException::class);
         $df->goToLine(9);
     }
-    
+
     public function testGetCellSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $this->assertEquals('Mary', $df->getCell(1, 'name'));
     }
-    
+
     public function testGetCellInvalidLineFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -893,8 +902,8 @@ class DataFrameTest extends TestCase {
         $this->expectException(OutOfBoundsException::class);
         $this->assertEquals('Mary', $df->getCell(9, 'name'));
     }
-    
-    
+
+
     public function testGetCellInvalidColFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -902,8 +911,8 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidColumnException::class);
         $this->assertEquals('Mary', $df->getCell(1, 'unknow'));
     }
-    
-    
+
+
     public function testSetCellSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -911,7 +920,7 @@ class DataFrameTest extends TestCase {
         $this->assertInstanceOf(DataFrame::class, $df->setCell(1, 'name', 'maria'));
         $this->assertEquals('maria', $df->getCell(1, 'name'));
     }
-    
+
     public function testSetCellInvalidLineFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -919,8 +928,8 @@ class DataFrameTest extends TestCase {
         $this->expectException(OutOfBoundsException::class);
         $this->assertEquals('Mary', $df->setCell(9, 'name', 'maria'));
     }
-    
-    
+
+
     public function testSetCellInvalidColFails()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -928,15 +937,15 @@ class DataFrameTest extends TestCase {
         $this->expectException(InvalidColumnException::class);
         $this->assertEquals('Mary', $df->setCell(1, 'unknow', 'maria'));
     }
-    
+
     public function testLineExists()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $this->assertTrue($df->lineExists(2));
     }
-    
-    
+
+
     public function testLineNotExists()
     {
         $reader = new ArrayReader($this->arraySample);

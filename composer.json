@@ -51,8 +51,8 @@
         "psalm": "psalm -c ./conf/psalm.xml",
         "phpstan": "phpstan analyse -c conf/phpstan.neon",
         "phpmd": "phpmd src ansi cleancode,codesize,controversial,design,naming,unusedcode",
-        "phpcs": "phpcs -p --standard=PSR12 src",
-        "phpcbf": "phpcbf -p --standard=PSR12 src",
+        "phpcs": "phpcs -p --standard=PSR12 src tests",
+        "phpcbf": "phpcbf -p --standard=PSR12 src tests",
         "php-cs-fixer": "php-cs-fixer fix --config=conf/php-cs-fixer.php",
         "phpcpd": "php ./tools/phpcpd.phar --fuzzy src"
     }

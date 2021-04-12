@@ -34,9 +34,10 @@ use PTK\DataFrame\Reader\ArrayReader;
  *
  * @author Everton
  */
-class ArrayReaderTest extends TestCase {
+class ArrayReaderTest extends TestCase
+{
     use TestToolsTrait;
-    
+
     public function testInstanceCreation()
     {
         $this->assertInstanceOf(ArrayReader::class, new ArrayReader([]));

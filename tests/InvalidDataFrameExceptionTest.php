@@ -36,13 +36,15 @@ use PTK\DataFrame\Reader\ArrayReader;
  *
  * @author Everton
  */
-class InvalidDataFrameExceptionTest extends TestCase {
+class InvalidDataFrameExceptionTest extends TestCase
+{
     use TestToolsTrait;
-    
-    public function testGetInvalidLines(){
+
+    public function testGetInvalidLines()
+    {
         $reader = new ArrayReader($this->arraySampleInvalid);
-        
-        try{
+
+        try {
             $df = new DataFrame($reader);
         } catch (InvalidDataFrameException $ex) {
             $this->assertEquals([
@@ -53,6 +55,5 @@ class InvalidDataFrameExceptionTest extends TestCase {
                 ]
             ], $ex->getInvalidLines());
         }
-        
     }
 }
