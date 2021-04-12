@@ -27,8 +27,10 @@
 namespace PTK\DataFrame;
 
 use InvalidArgumentException;
-use PTK\DataFrame\Exception\InvalidDataFrameException;
+use LengthException;
+use OutOfBoundsException;
 use PTK\DataFrame\Exception\InvalidColumnException;
+use PTK\DataFrame\Exception\InvalidDataFrameException;
 use PTK\DataFrame\Reader\ArrayReader;
 use PTK\DataFrame\Reader\EmptyDataFrameReader;
 use PTK\DataFrame\Reader\ReaderInterface;
@@ -575,17 +577,44 @@ class DataFrame {
      *  resultado da soma como valor.
      */
     public function sumLines(string ...$colName): array {
-        
+        $result = [];
+        foreach($this->df as $index => $line){
+            $sum = 0;
+            foreach($colName as $name){
+                if(!$this->colExists($name)){
+                    throw new InvalidColumnException($name);
+                }
+                $sum += $line[$name];
+            }
+            $result[$index] = $sum;
+        }
+
+        return $result;
     }
 
     /**
      * Altera o nome de todas as colunas.
      *
-     * @param array<string> $newNames Array com os novos nomes de colunas.
+     * @param string $newColName Lista com os novos nomes de colunas.
      * @return DataFrame Retorna o data frame atual.
      */
-    public function setColNames(array $newNames): DataFrame {
+    public function setColNames(string ...$newColName): DataFrame {
+        if(sizeof($this->getColNames()) !== sizeof($newColName)){
+            throw new LengthException(sizeof($newColName));
+        }
         
+        $tmp = [];
+        foreach ($this->getColNames() as $index => $colName){
+            $tmp[$colName] = $newColName[$index];
+        }
+        foreach ($this->df as $index => $line){
+            $newLine = [];
+            foreach ($tmp as $old => $new){
+                $newLine[$new]  = $line[$old];
+            }
+            $this->df[$index] = $newLine;
+        }
+        return $this;
     }
 
     /**
@@ -596,14 +625,31 @@ class DataFrame {
      * @return DataFrame Retorna o data frame atual.
      */
     public function changeColName(string $oldColName, string $newColName): DataFrame {
+        if(!$this->colExists($oldColName)){
+            throw new InvalidColumnException($oldColName);
+        }
         
+        $new = $this->getColNames();
+        foreach ($new as $index => $colName){
+            if($colName === $oldColName){
+                $new[$index] = $newColName;
+            }
+        }
+        
+        $this->setColNames(...$new);
+                
+        return $this;
     }
 
     /**
      * Acrescenta uma nova coluna.
      *
-     * Se o número de linhas de $data for diferente do número de linhas do data frame original, os
-     * valores faltantes serão NULL.
+     * Se o número de linhas de $data deve ser igual ao número de linhas do data frame.
+     * 
+     * Se $colName contém o nome de uma coluna já existente, ela será substituída.
+     * 
+     * Se o data frame atual tiver índices de linha inexistentes em $data, ou vice-versa, 
+     * uma exceção é disparada.
      *
      * @param string $colName
      * @param array $data Um array com os dados da nova coluna.
@@ -611,6 +657,25 @@ class DataFrame {
      */
     public function appendCol(string $colName, array $data = []): DataFrame {
         
+        if($this->countLines() !== sizeof($data)){
+            throw new LengthException(sizeof($data));
+        }
+        $counter = sizeof($data);//necessário para controlar se alguma chave de $data não foi importada.
+        foreach ($this->df as $index => $line){
+            if(!key_exists($index, $data)){
+                throw new OutOfBoundsException($index);
+            }
+            $this->df[$index][$colName] = $data[$index];
+            $counter--;
+        }
+        // @codeCoverageIgnoreStart
+        // Não vejo um modo de testar isso, já que, invariavelmente vai cair numa das exceções prévias
+        if($counter !== 0){//se $data tinha chaves inexistentes no data frame atual, vai sobrar valor no counter
+            throw new LengthException($counter);
+        }
+        // @codeCoverageIgnoreEnd
+        
+        return $this;
     }
 
     /**
@@ -627,46 +692,47 @@ class DataFrame {
      * 
      * A linha atual é aquela para qual o ponteiro do data frame está apontando, sem movê-lo.
      * 
-     * @return array<mixed> Retorna a linha atual.
+     * @return false|array<mixed> Retorna a linha atual ou false se não houverem mais linhas para retornar.
      */
-    public function current(): array {
+    public function current(){
         return current($this->df);
     }
 
     /**
      * Avança o ponteiro do data frame em uma linha e retorna ela.
      * 
-     * @return array<mixed>
+     * @return false|array<mixed> Retorna a linha atual ou false se não houverem mais linhas para retornar.
      */
-    public function next(): array {
-        
+    public function next() {
+        return next($this->df);
     }
 
     /**
      * Retrocede o ponteiro do data frame uma linha e retorna ela.
      * 
-     * @return array<mixed>
+     * @return false|array<mixed> Retorna a linha atual ou false se não houverem mais linhas para retornar.
      */
-    public function previous(): array {
-        
+    public function previous() {
+        return prev($this->df);
     }
 
     /**
      * Coloca o ponteiro do data frame na primeira linha e retorna ela.
      * 
-     * @return array<mixed>
+     * @return false|array<mixed> Retorna a linha atual ou false no caso de array vazio.
      */
-    public function first(): array {
-        
+    public function first() {
+        reset($this->df);
+        return current($this->df);
     }
 
     /**
      * Coloca o ponteiro na última linha do data frame e retorna ela.
      * 
-     * @return array<mixed>
+     * @return false|array<mixed> Retorna a linha atual ou false no caso de array vazio.
      */
-    public function last(): array {
-        
+    public function last() {
+        return end($this->df);
     }
 
     /**
@@ -676,7 +742,21 @@ class DataFrame {
      * @return array<mixed>
      */
     public function goToLine(int $line): array {
+        if(!key_exists($line, $this->df)){
+            throw new OutOfBoundsException($line);
+        }
         
+        reset($this->df);
+        foreach ($this->df as $index => $l){
+            if($index === $line){
+                return $l;
+            }
+        }
+        
+        // @codeCoverageIgnoreStart
+        // em nenhuma situação vai chegar nesta linha
+        return [];
+        // @codeCoverageIgnoreEnd
     }
     
     /**
@@ -688,7 +768,15 @@ class DataFrame {
      */
     public function getCell(int $line, string $colName)
     {
+        if(!key_exists($line, $this->df)){
+            throw new OutOfBoundsException($line);
+        }
         
+        if(!$this->colExists($colName)){
+            throw new InvalidColumnException($colName);
+        }
+        
+        return $this->df[$line][$colName];
     }
     
     /**
@@ -701,6 +789,25 @@ class DataFrame {
      */
     public function setCell(int $line, string $colName, $newValue): DataFrame
     {
+        if(!key_exists($line, $this->df)){
+            throw new OutOfBoundsException($line);
+        }
         
+        if(!$this->colExists($colName)){
+            throw new InvalidColumnException($colName);
+        }
+        $this->df[$line][$colName] = $newValue;
+        return $this;
+    }
+    
+    /**
+     * Verifica a existência de determinada linha pelo seu índice.
+     * 
+     * @param int $line
+     * @return bool
+     */
+    public function lineExists(int $line): bool
+    {
+        return key_exists($line, $this->df);
     }
 }

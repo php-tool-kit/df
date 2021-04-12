@@ -56,11 +56,12 @@ try {
             ]
     );
 
-    $reader = new ArrayReader([['colname' => 0]]);
-    
     $df = new DataFrame($reader);
 
-    print_r($df->getAsArray());
+    $df->setColNames('id', 'nome', 'age', 'sexo');
+//    $df->changeColName('name', 'nome');
+            
+    print_r($df->getColNames());
 }
 catch (InvalidDataFrameException $ex){
     echo $ex->getTraceAsString();
