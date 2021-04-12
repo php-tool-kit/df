@@ -40,7 +40,6 @@ use function sizeof;
  */
 class FixedWidthFieldReader implements ReaderInterface
 {
-    private string $filename = '';
     private bool $hasHeader = true;
     private int $skipLines = 0;
     /**
@@ -53,19 +52,17 @@ class FixedWidthFieldReader implements ReaderInterface
 
     /**
      *
-     * @param string $filename Caminho para o arquivo.
+     * @param resource $handle Resource fornecido por fopen()
      * @param bool $hasHeader TRUE se o arquivo possui linha de cabeçalho.
      * @param int $skipLines Quantidade de linhas para pular no início do arquivo.
      * @param int $colSize Lista com inteiros representando o tamanho de cada coluna.
      */
-    public function __construct(string $filename, bool $hasHeader, int $skipLines, int ...$colSize)
+    public function __construct($handle, bool $hasHeader, int $skipLines, int ...$colSize)
     {
-        $this->filename = $filename;
+        $this->handle = $handle;
         $this->hasHeader = $hasHeader;
         $this->skipLines = $skipLines;
         $this->colSizes = $colSize;
-
-        $this->open();
     }
 
     /**
@@ -86,28 +83,14 @@ class FixedWidthFieldReader implements ReaderInterface
         return $data;
     }
 
-    protected function open(): void
-    {
-        if (!file_exists($this->filename)) {
-            throw new ResourceNotFoundException($this->filename);
-        }
-
-        $handle = fopen($this->filename, 'r');
-
-        if (!$handle) {
-            throw new InvalidResourceException($this->filename);
-        }
-
-        $this->handle = $handle;
-    }
-
+    /**
+     *
+     * @return array<mixed>
+     * @throws ParseError
+     */
     public function read(): array
     {
-        if ($this->skipLines > 0) {
-            for ($i = 0; $i < $this->skipLines; $i++) {
-                fgets($this->handle);
-            }
-        }
+        $this->skipLines();
 
         $header = [];
         if ($this->hasHeader === true) {
@@ -144,5 +127,14 @@ class FixedWidthFieldReader implements ReaderInterface
             $data[$index] = $newLine;
         }
         return $data;
+    }
+
+    protected function skipLines(): void
+    {
+        if ($this->skipLines > 0) {
+            for ($i = 0; $i < $this->skipLines; $i++) {
+                fgets($this->handle);
+            }
+        }
     }
 }
