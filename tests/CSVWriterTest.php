@@ -45,10 +45,11 @@ class CSVWriterTest extends TestCase
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $csv = 'tests/assets/cache/example.csv';
+        $csv = fopen('tests/assets/cache/example.csv', 'w+');
         $writer = new CSVWriter($df, $csv, ';', true);
         $this->assertInstanceOf(CSVWriter::class, $writer);
         $writer->write();
+        rewind($csv);
         $reader = new CSVReader($csv, ';', true);
         $this->assertEquals($this->arraySample, $reader->read());
     }
@@ -57,9 +58,10 @@ class CSVWriterTest extends TestCase
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $csv = 'tests/assets/cache/example-no-header.csv';
+        $csv = fopen('tests/assets/cache/example-no-header.csv', 'w+');
         $writer = new CSVWriter($df, $csv, ';', false);
         $writer->write();
+        rewind($csv);
         $reader = new CSVReader($csv, ';', false);
         $this->assertEquals([
             [
@@ -89,13 +91,12 @@ class CSVWriterTest extends TestCase
         if (file_exists($csv)) {
             unlink($csv);
         }
-
+        $csv = fopen($csv, 'a+');
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
 
         $writer = new CSVWriter($df, $csv, ';', true);
         $writer->write();
-
         $reader = new ArrayReader([
             [
                 'id' => 4,
@@ -108,7 +109,7 @@ class CSVWriterTest extends TestCase
 
         $writer = new CSVWriter($df, $csv, ';', false, true);
         $writer->write();
-
+        rewind($csv);
         $reader = new CSVReader($csv, ';', true);
         $this->assertEquals([
             [

@@ -37,50 +37,28 @@ use PTK\Exception\ResourceException\InvalidResourceException;
 class CSVWriter implements WriterInterface
 {
     private DataFrame $df;
-    private string $filename = '';
     private string $separator = '';
     private bool $hasHeader = true;
-    private bool $append = false;
     /** @phpstan-ignore-next-line ignora a exigência de declarar um tipo */
     private $handle;
 
+    /**
+     *
+     * @param DataFrame $df
+     * @param resource $handle Handle fornecido por fopen()
+     * @param string $separator
+     * @param bool $hasHeader
+     */
     public function __construct(
         DataFrame $df,
-        string $filename,
+        $handle,
         string $separator,
-        bool $hasHeader,
-        bool $append = false
+        bool $hasHeader
     ) {
         $this->df = $df;
-        $this->filename = $filename;
+        $this->handle = $handle;
         $this->separator = $separator;
         $this->hasHeader = $hasHeader;
-        $this->append = $append;
-
-        $this->open();
-    }
-
-    protected function open(): void
-    {
-        $mode = '';
-        switch ($this->append) {
-            case true:
-                $mode = 'a';
-                break;
-            case false:
-                $mode = 'w';
-                break;
-        }
-
-        $handle = fopen($this->filename, $mode);
-
-        // @codeCoverageIgnoreStart
-        if (!$handle) {
-            throw new InvalidResourceException($this->filename);
-        }
-        // @codeCoverageIgnoreEnd
-
-        $this->handle = $handle;
     }
 
     public function write(): void
@@ -94,7 +72,5 @@ class CSVWriter implements WriterInterface
             fputcsv($this->handle, $buffer, $this->separator);
             $buffer = $this->df->next();
         }
-
-        fclose($this->handle);
     }
 }
