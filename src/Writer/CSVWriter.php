@@ -27,9 +27,12 @@
 namespace PTK\DataFrame\Writer;
 
 use PTK\DataFrame\DataFrame;
+use PTK\Exception\ResourceException\InvalidResourceException;
 
 /**
  * Salva o data frame para um arquivo CSV.
+ *
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class CSVWriter implements WriterInterface
 {
@@ -37,16 +40,61 @@ class CSVWriter implements WriterInterface
     private string $filename = '';
     private string $separator = '';
     private bool $hasHeader = true;
+    private bool $append = false;
+    /** @phpstan-ignore-next-line ignora a exigência de declarar um tipo */
+    private $handle;
 
-    public function __construct(DataFrame $df, string $filename, string $separator, bool $hasHeader)
-    {
+    public function __construct(
+        DataFrame $df,
+        string $filename,
+        string $separator,
+        bool $hasHeader,
+        bool $append = false
+    ) {
         $this->df = $df;
         $this->filename = $filename;
         $this->separator = $separator;
         $this->hasHeader = $hasHeader;
+        $this->append = $append;
+
+        $this->open();
+    }
+
+    protected function open(): void
+    {
+        $mode = '';
+        switch ($this->append) {
+            case true:
+                $mode = 'a';
+                break;
+            case false:
+                $mode = 'w';
+                break;
+        }
+
+        $handle = fopen($this->filename, $mode);
+
+        // @codeCoverageIgnoreStart
+        if (!$handle) {
+            throw new InvalidResourceException($this->filename);
+        }
+        // @codeCoverageIgnoreEnd
+
+        $this->handle = $handle;
     }
 
     public function write(): void
     {
+        if ($this->hasHeader) {
+            fputcsv($this->handle, $this->df->getColNames(), $this->separator);
+        }
+
+        $buffer = $this->df->current();
+        while ($buffer !== false) {
+            fputcsv($this->handle, $buffer, $this->separator);
+            $buffer = $this->df->next();
+        }
+
+        fclose($this->handle);
     }
 }

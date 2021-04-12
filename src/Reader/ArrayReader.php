@@ -31,21 +31,28 @@ namespace PTK\DataFrame\Reader;
  *
  * @author Everton
  */
-class ArrayReader implements ReaderInterface {
-    
-    private array $data = [];
-    
+class ArrayReader implements ReaderInterface
+{
+
     /**
-     * Observe que nenhum teste de integridade da estrutura do array é feito. Isso será feito por PTK\DataFrame\DataFrame quando self::reade() for utilizado.
-     * 
+     *
+     * @var array<mixed>
+     */
+    private array $data = [];
+
+    /**
+     * Observe que nenhum teste de integridade da estrutura do array é feito. Isso será feito por
+     *  PTK\DataFrame\DataFrame quando self::reade() for utilizado.
+     *
      * @param array<mixed> $data Array no formato $data = [linha (int)][coluna (string)] = valor (mixed)
      */
-    public function __construct(array $data) {
+    public function __construct(array $data)
+    {
         $this->data = $data;
     }
-    
-    public function read(): array {
+
+    public function read(): array
+    {
         return $this->data;
     }
-
 }

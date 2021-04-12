@@ -31,11 +31,10 @@ namespace PTK\DataFrame\Reader;
  *
  * @author Everton
  */
-class EmptyDataFrameReader implements ReaderInterface {
-    
+class EmptyDataFrameReader implements ReaderInterface
+{
     public function read(): array
     {
         return  [];
     }
-
 }

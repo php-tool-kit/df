@@ -33,10 +33,10 @@ namespace PTK\DataFrame\Reader;
  */
 interface ReaderInterface
 {
-    
+
     /**
-     * 
-     * @return array<mixed> Retorna um array no formato 
+     *
+     * @return array<mixed> Retorna um array no formato
      * $data = [linha (int)][coluna (string)] = valor (mixed).
      */
     public function read(): array;

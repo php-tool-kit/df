@@ -36,14 +36,14 @@ use Throwable;
 class InvalidColumnException extends \Exception
 {
     protected string $colName = '';
-    
+
     public function __construct(string $colName, string $message = '', int $code = 0, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
-        
+
         $this->colName = $colName;
     }
-    
+
     public function getInvalidColName(): string
     {
         return $this->colName;

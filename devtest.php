@@ -31,6 +31,8 @@ use PTK\DataFrame\Reader\ArrayReader;
 /**
  * Arquivo para testes durante o desenvolvimento.
  */
+
+echo gettype(fopen('tests/assets/example.csv', 'r'));exit();
 require 'vendor/autoload.php';
 try {
     $reader = new ArrayReader(

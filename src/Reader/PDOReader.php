@@ -26,11 +26,31 @@
 
 namespace PTK\DataFrame\Reader;
 
+use PDOStatement;
+
 /**
- * Description of PDOReader
+ * Reader para resultados do PDOStatement.
  *
  * @author Everton
  */
-class PDOReader {
-    //put your code here
+class PDOReader implements ReaderInterface
+{
+    private PDOStatement $stmt;
+
+    public function __construct(PDOStatement $stmt)
+    {
+        $this->stmt = $stmt;
+    }
+
+    public function read(): array
+    {
+        $result = $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        // @codeCoverageIgnoreStart
+        if ($result === false) {
+            $result = [];
+        }
+        // @codeCoverageIgnoreEnd
+        return $result;
+    }
 }

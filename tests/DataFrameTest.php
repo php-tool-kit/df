@@ -380,7 +380,7 @@ class DataFrameTest extends TestCase {
         ]);
         $df = new DataFrame($reader);
         $df1 = new DataFrame($reader1);
-        $this->expectException(InvalidDataFrameException::class);
+        $this->expectException(InvalidColumnException::class);
         $df->mergeLines($df1);
     }
     

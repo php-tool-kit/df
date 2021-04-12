@@ -24,13 +24,29 @@
  * THE SOFTWARE.
  */
 
-namespace PTK\DataFrame\Writer;
+namespace PTK\DataFrame\Test;
+
+use PHPUnit\Framework\TestCase;
+use PTK\DataFrame\DataFrame;
+use PTK\DataFrame\Exception\InvalidColumnException;
+use PTK\DataFrame\Reader\ArrayReader;
 
 /**
- * Description of PDOWriter
+ * Testes para InvalidColumnExceptionTest
  *
  * @author Everton
  */
-class PDOWriter {
-    //put your code here
+class InvalidColumnExceptionTest extends TestCase {
+    use TestToolsTrait;
+    
+    public function testGetInvalidColName(){
+        $reader = new ArrayReader($this->arraySample);
+        $df = new DataFrame($reader);
+        try{
+            $df->detectColTypes('unknow');
+        } catch (InvalidColumnException $ex) {
+            $this->assertEquals('unknow', $ex->getInvalidColName());
+        }
+        
+    }
 }
