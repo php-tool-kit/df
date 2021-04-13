@@ -129,7 +129,7 @@ class DataFrameTest extends TestCase
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $dff = $df->getCols('id', 'age');
+        $dff = DataFrame::getCols($df, 'id', 'age');
         $this->assertInstanceOf(DataFrame::class, $dff);
         $this->assertEquals(
             [
@@ -155,14 +155,14 @@ class DataFrameTest extends TestCase
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $this->expectException(InvalidColumnException::class);
-        $dff = $df->getCols('id', 'unknow');
+        $dff = DataFrame::getCols($df, 'id', 'unknow');
     }
 
     public function testGetLinesSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $dff = $df->getLines(0, 2);
+        $dff = DataFrame::getLines($df, 0, 2);
         $this->assertInstanceOf(DataFrame::class, $dff);
         $this->assertEquals(
             [
@@ -187,7 +187,7 @@ class DataFrameTest extends TestCase
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $dff = $df->getLines(9);
+        $dff = DataFrame::getLines($df, 9);
         $this->assertInstanceOf(DataFrame::class, $dff);
         $this->assertEquals([], $dff->getAsArray());
     }
@@ -196,7 +196,7 @@ class DataFrameTest extends TestCase
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $dff = $df->getLines(0, 2);
+        $dff = DataFrame::getLines($df, 0, 2);
         $this->assertInstanceOf(DataFrame::class, $dff->reindex());
         $this->assertEquals(
             [
@@ -222,14 +222,14 @@ class DataFrameTest extends TestCase
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $this->expectException(InvalidArgumentException::class);
-        $dff = $df->getLinesByRange(2, 1);
+        $dff = DataFrame::getLinesByRange($df, 2, 1);
     }
 
     public function testGetLinesByRangeSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $dff = $df->getLinesByRange(1, 2);
+        $dff = DataFrame::getLinesByRange($df, 1, 2);
         $this->assertInstanceOf(DataFrame::class, $dff);
         $this->assertEquals(
             [
@@ -494,7 +494,7 @@ class DataFrameTest extends TestCase
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $dff = $df->filter(function ($data): bool {
+        $dff = DataFrame::filter($df, function ($data): bool {
             if ($data['age'] == 21) {
                 return true;
             }
@@ -518,7 +518,7 @@ class DataFrameTest extends TestCase
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-        $dff = $df->filter(function ($data): bool {
+        $dff = DataFrame::filter($df, function ($data): bool {
             if ($data['age'] == 22) {
                 return true;
             }

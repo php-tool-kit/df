@@ -193,16 +193,17 @@ class DataFrame
     /**
      * Um data frame com as colunas especificadas.
      *
+     * @param DataFrame $df
      * @param string $colName Lista com os nomes das colunas desejadas.
      * @return DataFrame Retorna um novo data frame com as colunas selecionadas.
      */
-    public function getCols(string ...$colName): DataFrame
+    public static function getCols(DataFrame $df, string ...$colName): DataFrame
     {
-        $actual = $this->getAsArray();
+        $actual = $df->getAsArray();
         $filtered = [];
 
         foreach ($colName as $name) {
-            if (!$this->colExists($name)) {
+            if (!$df->colExists($name)) {
                 throw new InvalidColumnException($name);
             }
         }
@@ -224,12 +225,13 @@ class DataFrame
      * O índice das linhas não é modificado no data frame resultante. Se quiser reindexar, use
      * DataFrame::reindex().
      *
+     * @param DataFrame $df
      * @param int $line Uma lista com as linhas desejadas.
      * @return DataFrame Retorna um novo data frame com as linhas selecionadas.
      */
-    public function getLines(int ...$line): DataFrame
+    public static function getLines(DataFrame $df, int ...$line): DataFrame
     {
-        $actual = $this->getAsArray();
+        $actual = $df->getAsArray();
         $filtered = [];
 
         //creio não ser necessário testar as linhas. se uma linha for fornecida mas ela não existir,
@@ -274,11 +276,12 @@ class DataFrame
      * O índice das linhas não é modificado no data frame resultante. Se quiser reindexar, use
      * DataFrame::reindex().
      *
+     * @param DataFrame $df
      * @param int|null $firstLine Primeira linha. Se nulo, a primeira linha do data frame original é usada.
      * @param int|null $lastLine Última linha. Se nulo, a última linha do data frame original é usada.
      * @return DataFrame Retorna um novo data frame com as linhas selecionadas.
      */
-    public function getLinesByRange(?int $firstLine = null, ?int $lastLine = null): DataFrame
+    public static function getLinesByRange(DataFrame $df, ?int $firstLine = null, ?int $lastLine = null): DataFrame
     {
         if ($firstLine > $lastLine) {
             throw new InvalidArgumentException("$firstLine:$lastLine");
@@ -293,7 +296,7 @@ class DataFrame
             throw new InvalidArgumentException("$firstLine:$lastLine");
         }
         // @codeCoverageIgnoreEnd
-        return $this->getLines(...$lines);
+        return self::getLines($df, ...$lines);
     }
 
     /**
@@ -453,15 +456,16 @@ class DataFrame
     /**
      * Filtra os dados do data frame atual retornando-os num novo data frame.
      *
+     * @param DataFrame $df
      * @param callable $filter Uma função de filtro que será aplicada em cada linha do data frame atual.
      *  Ela deve retornar TRUE caso a linha deva ser incluída no novo data frame ou FALSE se não.
-     * @return DataFrame Retorna um novo data frame com so dados filtrados.
+     * @return DataFrame Retorna um novo data frame com os dados filtrados.
      */
-    public function filter(callable $filter): DataFrame
+    public static function filter(DataFrame $df, callable $filter): DataFrame
     {
         $result = [];
 
-        foreach ($this->df as $index => $line) {
+        foreach ($df->getAsArray() as $index => $line) {
             if ($filter($line) === true) {
                 $result[$index] = $line;
             }
@@ -856,6 +860,12 @@ class DataFrame
         return key_exists($line, $this->df);
     }
     
+    /**
+     * Copia os dados de um data frame.
+     * 
+     * @param DataFrame $df
+     * @return DataFrame Retorna um dovo data frame com os dados do original.
+     */
     public static function copy(DataFrame $df): DataFrame
     {
         $reader = new ArrayReader($df->getAsArray());
