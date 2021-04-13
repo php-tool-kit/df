@@ -26,6 +26,8 @@
 
 namespace PTK\DataFrame\Writer;
 
+use InvalidArgumentException;
+use PDO;
 use PDOException;
 use PDOStatement;
 use PTK\DataFrame\DataFrame;
@@ -34,7 +36,7 @@ use PTK\DataFrame\DataFrame;
  * Escreve o data frame em um banco de dados relacional utilizando PDO.
  *
  * @author Everton
- * 
+ *
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class PDOWriter implements WriterInterface
@@ -84,5 +86,72 @@ class PDOWriter implements WriterInterface
             }
             $data = $this->df->next();
         }
+    }
+
+    /**
+     * Cria uma tabela no padrão SQLITE a partir do data frame.
+     *
+     * @param DataFrame $df
+     * @param PDO $pdo
+     * @param string $tableName
+     * @param string $primaryKey Nome do campo que será a chave primária (opcional)
+     * @param bool $rowId TRUE para indicar se será gerada ROWID na tabela.
+     * @return bool
+     * @throws InvalidArgumentException
+     *
+     * @SuppressWarnings(CyclomaticComplexity)
+     * @SuppressWarnings(BooleanArgumentFlag)
+     */
+    public static function createSQliteTable(
+        DataFrame $df,
+        PDO $pdo,
+        string $tableName,
+        string $primaryKey = '',
+        bool $rowId = true
+    ): bool {
+        $colNames = $df->getColNames();
+        $colTypes = $df->getColTypes();
+
+        $dbTypes = [];
+        foreach ($colTypes as $type) {
+            switch ($type) {
+                case 'string':
+                    $dbTypes[] = 'TEXT';
+                    break;
+                case 'int':
+                case 'integer':
+                    $dbTypes[] = 'INTEGER';
+                    break;
+                case 'float':
+                case 'double':
+                    $dbTypes[] = 'REAL';
+                    break;
+                default:
+                    throw new InvalidArgumentException($type);
+            }
+        }
+
+        $fields = [];
+        foreach ($colNames as $index => $name) {
+            $primary = '';
+            if ($name === $primaryKey) {
+                $primary = ' PRIMARY KEY';
+            }
+            $fields[] = "$name {$dbTypes[$index]}$primary";
+        }
+        $fieldSpec = join(', ', $fields);
+
+        $sql = "CREATE TABLE IF NOT EXISTS '$tableName' ($fieldSpec)";
+
+        if ($rowId === false) {
+            $sql .= " WITHOUT ROWID";
+        }
+
+        $sql .= ';';
+
+        if ($pdo->exec($sql) === false) {
+            return false;
+        }
+        return true;
     }
 }

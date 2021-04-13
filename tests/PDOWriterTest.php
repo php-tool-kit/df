@@ -26,8 +26,8 @@
 
 namespace PTK\DataFrame\Test;
 
+use InvalidArgumentException;
 use PDO;
-use PDOException;
 use PHPUnit\Framework\TestCase;
 use PTK\DataFrame\DataFrame;
 use PTK\DataFrame\Reader\ArrayReader;
@@ -64,5 +64,40 @@ class PDOWriterTest extends TestCase
         $reader = new PDOReader($stmt);
         $df = new DataFrame($reader);
         $this->assertEquals($this->arraySample, $df->getAsArray());
+    }
+
+    public function testCreateTableSuccess()
+    {
+        $reader = new ArrayReader($this->arraySample);
+        $df = new DataFrame($reader);
+        $df->appendCol('rent', [1.5, 2.6, 0.8]);
+
+        if (file_exists('tests/assets/cache/example.sqlite')) {
+            unlink('tests/assets/cache/example.sqlite');
+        }
+
+        $pdo = new PDO("sqlite:tests/assets/cache/example.sqlite");
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $this->assertTrue(PDOWriter::createSQliteTable($df, $pdo, 'df'));
+        $stmt = $pdo->query("SELECT name FROM sqlite_master WHERE type='table' AND name='df'");
+        $this->assertEquals(1, $stmt->columnCount());
+    }
+
+    public function testCreateTableInvalidTypeFails()
+    {
+        $reader = new ArrayReader($this->arraySample);
+        $df = new DataFrame($reader);
+        $df->appendCol('itsFails', [null, null, null]);
+
+        if (file_exists('tests/assets/cache/example.sqlite')) {
+            unlink('tests/assets/cache/example.sqlite');
+        }
+
+        $pdo = new PDO("sqlite:tests/assets/cache/example.sqlite");
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $this->expectException(InvalidArgumentException::class);
+        PDOWriter::createSQliteTable($df, $pdo, 'df');
     }
 }

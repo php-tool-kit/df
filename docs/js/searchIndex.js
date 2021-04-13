@@ -441,6 +441,11 @@ Search.appendIndex(
             "summary": "Escreve\u0020os\u0020dados\u0020do\u0020data\u0020frame\u0020no\u0020banco\u0020de\u0020dados.",
             "url": "classes/PTK-DataFrame-Writer-PDOWriter.html#method_write"
         },                {
+            "fqsen": "\\PTK\\DataFrame\\Writer\\PDOWriter\u003A\u003AcreateSQliteTable\u0028\u0029",
+            "name": "createSQliteTable",
+            "summary": "Cria\u0020uma\u0020tabela\u0020no\u0020padr\u00E3o\u0020SQLITE\u0020a\u0020partir\u0020do\u0020data\u0020frame.",
+            "url": "classes/PTK-DataFrame-Writer-PDOWriter.html#method_createSQliteTable"
+        },                {
             "fqsen": "\\PTK\\DataFrame\\Writer\\PDOWriter\u003A\u003A\u0024df",
             "name": "df",
             "summary": "",
