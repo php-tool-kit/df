@@ -952,4 +952,15 @@ class DataFrameTest extends TestCase
         $df = new DataFrame($reader);
         $this->assertFalse($df->lineExists(9));
     }
+    
+    public function testCopy()
+    {
+        $reader = new ArrayReader($this->arraySample);
+        $df = new DataFrame($reader);
+        $copied = DataFrame::copy($df);
+        $this->assertInstanceOf(DataFrame::class, $copied);
+        $this->assertEquals($df->getAsArray(), $copied->getAsArray());
+    }
+    
+    
 }

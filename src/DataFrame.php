@@ -855,4 +855,10 @@ class DataFrame
     {
         return key_exists($line, $this->df);
     }
+    
+    public static function copy(DataFrame $df): DataFrame
+    {
+        $reader = new ArrayReader($df->getAsArray());
+        return new DataFrame($reader);
+    }
 }
