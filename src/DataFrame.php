@@ -871,4 +871,41 @@ class DataFrame
         $reader = new ArrayReader($df->getAsArray());
         return new DataFrame($reader);
     }
+    
+    /**
+     * Altera o tipo em todas as células da coluna especificada.
+     * 
+     * A alteração se dá através de settype().
+     * 
+     * @param string $colName
+     * @param string $type Um dos tipos aceitos por settype().
+     * @return DataFrame Retorna o data frame atual.
+     * @throws InvalidColumnException
+     * @throws InvalidArgumentException
+     */
+    public function setColType(string $colName, string $type): DataFrame
+    {
+        if (!$this->colExists($colName)) {
+            throw new InvalidColumnException($colName);
+        }
+        
+        switch ($type){
+            case 'boolean':
+            case 'integer':
+            case 'float':
+            case 'string':
+            case 'array':
+            case 'object':
+            case 'null':
+                break;
+            default :
+                throw new InvalidArgumentException($type);
+        }
+        
+        foreach ($this->df as $index => $line){
+            settype($this->df[$index][$colName], $type);
+        }
+        
+        return $this;
+    }
 }

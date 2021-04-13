@@ -961,6 +961,49 @@ class DataFrameTest extends TestCase
         $this->assertInstanceOf(DataFrame::class, $copied);
         $this->assertEquals($df->getAsArray(), $copied->getAsArray());
     }
+
+    public function testSetTypeSuccess()
+    {
+        $reader = new ArrayReader($this->arraySample);
+        $df = new DataFrame($reader);
+        $this->assertInstanceOf(DataFrame::class, $df->setColType('age', 'integer'));
+        $this->assertEquals([
+            [
+                'id' => 1,
+                'name' => 'John',
+                'age' => 33,
+                'sex' => 'M'
+            ],
+            [
+                'id' => 2,
+                'name' => 'Mary',
+                'age' => 21,
+                'sex' => 'F'
+            ],
+            [
+                'id' => 3,
+                'name' => 'Paul',
+                'age' => 58,
+                'sex' => 'M'
+            ]
+        ], $df->getAsArray());
+    }
+
+    public function testSetTypeInvalidColNameFails()
+    {
+        $reader = new ArrayReader($this->arraySample);
+        $df = new DataFrame($reader);
+        $this->expectException(InvalidColumnException::class);
+        $df->setColType('unknow', 'integer');
+    }
+
+    public function testSetTypeInvalidTypeFails()
+    {
+        $reader = new ArrayReader($this->arraySample);
+        $df = new DataFrame($reader);
+        $this->expectException(InvalidArgumentException::class);
+        $df->setColType('age', 'invalid');
+    }
     
     
 }
