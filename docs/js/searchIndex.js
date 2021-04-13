@@ -426,6 +426,31 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PTK-DataFrame-Writer-WriterInterface.html#method_write"
         },                {
+            "fqsen": "\\PTK\\DataFrame\\Writer\\PDOWriter",
+            "name": "PDOWriter",
+            "summary": "Escreve\u0020o\u0020data\u0020frame\u0020em\u0020um\u0020banco\u0020de\u0020dados\u0020relacional\u0020utilizando\u0020PDO.",
+            "url": "classes/PTK-DataFrame-Writer-PDOWriter.html"
+        },                {
+            "fqsen": "\\PTK\\DataFrame\\Writer\\PDOWriter\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Recomenda\u002Dse\u0020setar\u0020\u0060\u0060\u0060\u0024pdo\u002D\u003EsetAttribute\u0028PDO\u003A\u003AATTR_ERRMODE,\u0020PDO\u003A\u003AERRMODE_EXCEPTION\u0029\u003B\u0060\u0060\u0060",
+            "url": "classes/PTK-DataFrame-Writer-PDOWriter.html#method___construct"
+        },                {
+            "fqsen": "\\PTK\\DataFrame\\Writer\\PDOWriter\u003A\u003Awrite\u0028\u0029",
+            "name": "write",
+            "summary": "Escreve\u0020os\u0020dados\u0020do\u0020data\u0020frame\u0020no\u0020banco\u0020de\u0020dados.",
+            "url": "classes/PTK-DataFrame-Writer-PDOWriter.html#method_write"
+        },                {
+            "fqsen": "\\PTK\\DataFrame\\Writer\\PDOWriter\u003A\u003A\u0024df",
+            "name": "df",
+            "summary": "",
+            "url": "classes/PTK-DataFrame-Writer-PDOWriter.html#property_df"
+        },                {
+            "fqsen": "\\PTK\\DataFrame\\Writer\\PDOWriter\u003A\u003A\u0024stmt",
+            "name": "stmt",
+            "summary": "",
+            "url": "classes/PTK-DataFrame-Writer-PDOWriter.html#property_stmt"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",

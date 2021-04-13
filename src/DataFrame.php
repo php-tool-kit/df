@@ -43,7 +43,7 @@ use function sizeof;
 /**
  * Implementa uma "casca" para o array implementando vários métodos úteis para trabalhar com
  *  dados no formato tabular.
- * 
+ *
  * @SuppressWarnings(PHPMD.TooManyMethods)
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
@@ -391,7 +391,7 @@ class DataFrame
      *
      * @param string $colName Lista com as colunas para remover.
      * @return DataFrame Retorna o data frame atual.
-     * 
+     *
      * @SuppressWarnings(UnusedLocalVariable)
      */
     public function removeCols(string ...$colName): DataFrame
@@ -401,7 +401,7 @@ class DataFrame
                 throw new InvalidColumnException($name);
             }
         }
-        
+
         foreach ($this->df as $index => $line) {
             foreach ($colName as $name) {
                 unset($this->df[$index][$name]);
@@ -708,7 +708,7 @@ class DataFrame
      * @param string $colName
      * @param array<mixed> $data Um array com os dados da nova coluna.
      * @return DataFrame Retorna o data frame atual.
-     * 
+     *
      * @SuppressWarnings(UnusedLocalVariable)
      */
     public function appendCol(string $colName, array $data = []): DataFrame
@@ -896,7 +896,7 @@ class DataFrame
      * @return DataFrame Retorna o data frame atual.
      * @throws InvalidColumnException
      * @throws InvalidArgumentException
-     * 
+     *
      * @SuppressWarnings(CyclomaticComplexity)
      * @SuppressWarnings(UnusedLocalVariable)
      */
