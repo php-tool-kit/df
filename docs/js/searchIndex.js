@@ -3,7 +3,7 @@ Search.appendIndex(
                 {
             "fqsen": "\\PTK\\DataFrame\\DataFrame",
             "name": "DataFrame",
-            "summary": "",
+            "summary": "Implementa\u0020uma\u0020\u0022casca\u0022\u0020para\u0020o\u0020array\u0020implementando\u0020v\u00E1rios\u0020m\u00E9todos\u0020\u00FAteis\u0020para\u0020trabalhar\u0020com\n\u0020dados\u0020no\u0020formato\u0020tabular.",
             "url": "classes/PTK-DataFrame-DataFrame.html"
         },                {
             "fqsen": "\\PTK\\DataFrame\\DataFrame\u003A\u003A__construct\u0028\u0029",

@@ -41,6 +41,8 @@ use function array_key_first;
 use function sizeof;
 
 /**
+ * Implementa uma "casca" para o array implementando vários métodos úteis para trabalhar com
+ *  dados no formato tabular.
  * 
  * @SuppressWarnings(PHPMD.TooManyMethods)
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
