@@ -40,6 +40,13 @@ use RangeException;
 use function array_key_first;
 use function sizeof;
 
+/**
+ * 
+ * @SuppressWarnings(PHPMD.TooManyMethods)
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ */
 class DataFrame
 {
 
@@ -382,6 +389,8 @@ class DataFrame
      *
      * @param string $colName Lista com as colunas para remover.
      * @return DataFrame Retorna o data frame atual.
+     * 
+     * @SuppressWarnings(UnusedLocalVariable)
      */
     public function removeCols(string ...$colName): DataFrame
     {
@@ -390,7 +399,7 @@ class DataFrame
                 throw new InvalidColumnException($name);
             }
         }
-
+        
         foreach ($this->df as $index => $line) {
             foreach ($colName as $name) {
                 unset($this->df[$index][$name]);
@@ -406,6 +415,7 @@ class DataFrame
      * @param array<mixed> $order Os critérios de ordenação, onde a chave do array corresponde a coluna
      *  e o valor de cada entrada à direção de ordenação (asc|ASC ou desc|DESC).
      * @return DataFrame Retorna o data frame atual.
+     * @SuppressWarnings(CyclomaticComplexity)
      */
     public function sort(array $order): DataFrame
     {
@@ -696,6 +706,8 @@ class DataFrame
      * @param string $colName
      * @param array<mixed> $data Um array com os dados da nova coluna.
      * @return DataFrame Retorna o data frame atual.
+     * 
+     * @SuppressWarnings(UnusedLocalVariable)
      */
     public function appendCol(string $colName, array $data = []): DataFrame
     {
@@ -859,10 +871,10 @@ class DataFrame
     {
         return key_exists($line, $this->df);
     }
-    
+
     /**
      * Copia os dados de um data frame.
-     * 
+     *
      * @param DataFrame $df
      * @return DataFrame Retorna um dovo data frame com os dados do original.
      */
@@ -871,25 +883,28 @@ class DataFrame
         $reader = new ArrayReader($df->getAsArray());
         return new DataFrame($reader);
     }
-    
+
     /**
      * Altera o tipo em todas as células da coluna especificada.
-     * 
+     *
      * A alteração se dá através de settype().
-     * 
+     *
      * @param string $colName
      * @param string $type Um dos tipos aceitos por settype().
      * @return DataFrame Retorna o data frame atual.
      * @throws InvalidColumnException
      * @throws InvalidArgumentException
+     * 
+     * @SuppressWarnings(CyclomaticComplexity)
+     * @SuppressWarnings(UnusedLocalVariable)
      */
     public function setColType(string $colName, string $type): DataFrame
     {
         if (!$this->colExists($colName)) {
             throw new InvalidColumnException($colName);
         }
-        
-        switch ($type){
+
+        switch ($type) {
             case 'boolean':
             case 'integer':
             case 'float':
@@ -898,14 +913,14 @@ class DataFrame
             case 'object':
             case 'null':
                 break;
-            default :
+            default:
                 throw new InvalidArgumentException($type);
         }
-        
-        foreach ($this->df as $index => $line){
+
+        foreach ($this->df as $index => $line) {
             settype($this->df[$index][$colName], $type);
         }
-        
+
         return $this;
     }
 }

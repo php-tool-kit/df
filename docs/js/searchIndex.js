@@ -186,6 +186,16 @@ Search.appendIndex(
             "summary": "Verifica\u0020a\u0020exist\u00EAncia\u0020de\u0020determinada\u0020linha\u0020pelo\u0020seu\u0020\u00EDndice.",
             "url": "classes/PTK-DataFrame-DataFrame.html#method_lineExists"
         },                {
+            "fqsen": "\\PTK\\DataFrame\\DataFrame\u003A\u003Acopy\u0028\u0029",
+            "name": "copy",
+            "summary": "Copia\u0020os\u0020dados\u0020de\u0020um\u0020data\u0020frame.",
+            "url": "classes/PTK-DataFrame-DataFrame.html#method_copy"
+        },                {
+            "fqsen": "\\PTK\\DataFrame\\DataFrame\u003A\u003AsetColType\u0028\u0029",
+            "name": "setColType",
+            "summary": "Altera\u0020o\u0020tipo\u0020em\u0020todas\u0020as\u0020c\u00E9lulas\u0020da\u0020coluna\u0020especificada.",
+            "url": "classes/PTK-DataFrame-DataFrame.html#method_setColType"
+        },                {
             "fqsen": "\\PTK\\DataFrame\\DataFrame\u003A\u003A\u0024df",
             "name": "df",
             "summary": "",
@@ -261,20 +271,20 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PTK-DataFrame-Reader-CSVReader.html#method___construct"
         },                {
-            "fqsen": "\\PTK\\DataFrame\\Reader\\CSVReader\u003A\u003Aopen\u0028\u0029",
-            "name": "open",
-            "summary": "",
-            "url": "classes/PTK-DataFrame-Reader-CSVReader.html#method_open"
-        },                {
             "fqsen": "\\PTK\\DataFrame\\Reader\\CSVReader\u003A\u003Aread\u0028\u0029",
             "name": "read",
             "summary": "",
             "url": "classes/PTK-DataFrame-Reader-CSVReader.html#method_read"
         },                {
-            "fqsen": "\\PTK\\DataFrame\\Reader\\CSVReader\u003A\u003A\u0024filename",
-            "name": "filename",
+            "fqsen": "\\PTK\\DataFrame\\Reader\\CSVReader\u003A\u003Aparse\u0028\u0029",
+            "name": "parse",
             "summary": "",
-            "url": "classes/PTK-DataFrame-Reader-CSVReader.html#property_filename"
+            "url": "classes/PTK-DataFrame-Reader-CSVReader.html#method_parse"
+        },                {
+            "fqsen": "\\PTK\\DataFrame\\Reader\\CSVReader\u003A\u003A\u0024skipLines",
+            "name": "skipLines",
+            "summary": "",
+            "url": "classes/PTK-DataFrame-Reader-CSVReader.html#property_skipLines"
         },                {
             "fqsen": "\\PTK\\DataFrame\\Reader\\CSVReader\u003A\u003A\u0024separator",
             "name": "separator",
@@ -285,11 +295,6 @@ Search.appendIndex(
             "name": "hasHeader",
             "summary": "",
             "url": "classes/PTK-DataFrame-Reader-CSVReader.html#property_hasHeader"
-        },                {
-            "fqsen": "\\PTK\\DataFrame\\Reader\\CSVReader\u003A\u003A\u0024skipLines",
-            "name": "skipLines",
-            "summary": "",
-            "url": "classes/PTK-DataFrame-Reader-CSVReader.html#property_skipLines"
         },                {
             "fqsen": "\\PTK\\DataFrame\\Reader\\CSVReader\u003A\u003A\u0024handle",
             "name": "handle",
@@ -321,30 +326,20 @@ Search.appendIndex(
             "summary": "Aplica\u0020trim\u0028\u0029\u0020em\u0020cada\u0020um\u0020dos\u0020campos.",
             "url": "classes/PTK-DataFrame-Reader-FixedWidthFieldReader.html#method_parse"
         },                {
-            "fqsen": "\\PTK\\DataFrame\\Reader\\FixedWidthFieldReader\u003A\u003Aopen\u0028\u0029",
-            "name": "open",
-            "summary": "",
-            "url": "classes/PTK-DataFrame-Reader-FixedWidthFieldReader.html#method_open"
-        },                {
             "fqsen": "\\PTK\\DataFrame\\Reader\\FixedWidthFieldReader\u003A\u003Aread\u0028\u0029",
             "name": "read",
             "summary": "",
             "url": "classes/PTK-DataFrame-Reader-FixedWidthFieldReader.html#method_read"
         },                {
-            "fqsen": "\\PTK\\DataFrame\\Reader\\FixedWidthFieldReader\u003A\u003A\u0024filename",
-            "name": "filename",
+            "fqsen": "\\PTK\\DataFrame\\Reader\\FixedWidthFieldReader\u003A\u003A\u0024skipLines",
+            "name": "skipLines",
             "summary": "",
-            "url": "classes/PTK-DataFrame-Reader-FixedWidthFieldReader.html#property_filename"
+            "url": "classes/PTK-DataFrame-Reader-FixedWidthFieldReader.html#property_skipLines"
         },                {
             "fqsen": "\\PTK\\DataFrame\\Reader\\FixedWidthFieldReader\u003A\u003A\u0024hasHeader",
             "name": "hasHeader",
             "summary": "",
             "url": "classes/PTK-DataFrame-Reader-FixedWidthFieldReader.html#property_hasHeader"
-        },                {
-            "fqsen": "\\PTK\\DataFrame\\Reader\\FixedWidthFieldReader\u003A\u003A\u0024skipLines",
-            "name": "skipLines",
-            "summary": "",
-            "url": "classes/PTK-DataFrame-Reader-FixedWidthFieldReader.html#property_skipLines"
         },                {
             "fqsen": "\\PTK\\DataFrame\\Reader\\FixedWidthFieldReader\u003A\u003A\u0024colSizes",
             "name": "colSizes",
@@ -396,11 +391,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PTK-DataFrame-Writer-CSVWriter.html#method___construct"
         },                {
-            "fqsen": "\\PTK\\DataFrame\\Writer\\CSVWriter\u003A\u003Aopen\u0028\u0029",
-            "name": "open",
-            "summary": "",
-            "url": "classes/PTK-DataFrame-Writer-CSVWriter.html#method_open"
-        },                {
             "fqsen": "\\PTK\\DataFrame\\Writer\\CSVWriter\u003A\u003Awrite\u0028\u0029",
             "name": "write",
             "summary": "",
@@ -411,11 +401,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PTK-DataFrame-Writer-CSVWriter.html#property_df"
         },                {
-            "fqsen": "\\PTK\\DataFrame\\Writer\\CSVWriter\u003A\u003A\u0024filename",
-            "name": "filename",
-            "summary": "",
-            "url": "classes/PTK-DataFrame-Writer-CSVWriter.html#property_filename"
-        },                {
             "fqsen": "\\PTK\\DataFrame\\Writer\\CSVWriter\u003A\u003A\u0024separator",
             "name": "separator",
             "summary": "",
@@ -425,11 +410,6 @@ Search.appendIndex(
             "name": "hasHeader",
             "summary": "",
             "url": "classes/PTK-DataFrame-Writer-CSVWriter.html#property_hasHeader"
-        },                {
-            "fqsen": "\\PTK\\DataFrame\\Writer\\CSVWriter\u003A\u003A\u0024append",
-            "name": "append",
-            "summary": "",
-            "url": "classes/PTK-DataFrame-Writer-CSVWriter.html#property_append"
         },                {
             "fqsen": "\\PTK\\DataFrame\\Writer\\CSVWriter\u003A\u003A\u0024handle",
             "name": "handle",

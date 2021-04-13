@@ -952,7 +952,7 @@ class DataFrameTest extends TestCase
         $df = new DataFrame($reader);
         $this->assertFalse($df->lineExists(9));
     }
-    
+
     public function testCopy()
     {
         $reader = new ArrayReader($this->arraySample);
@@ -1004,6 +1004,4 @@ class DataFrameTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $df->setColType('age', 'invalid');
     }
-    
-    
 }
