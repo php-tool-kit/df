@@ -33,12 +33,12 @@
     },
     "require-dev": {
         "phpunit/phpunit": "@stable",
-        "phpmd/phpmd": "*",
-        "friendsofphp/php-cs-fixer": "*",
-        "squizlabs/php_codesniffer": "*",
+        "phpmd/phpmd": "@stable",
+        "friendsofphp/php-cs-fixer": "@stable",
+        "squizlabs/php_codesniffer": "@stable",
         "ext-fileinfo": "*",
-        "phpstan/phpstan": "0.12.83",
-        "vimeo/psalm": "*"
+        "phpstan/phpstan": "@stable",
+        "vimeo/psalm": "@stable"
     },
     "scripts": {
         "dist": [
