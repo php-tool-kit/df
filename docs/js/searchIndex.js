@@ -416,16 +416,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PTK-DataFrame-Writer-CSVWriter.html#property_handle"
         },                {
-            "fqsen": "\\PTK\\DataFrame\\Writer\\WriterInterface",
-            "name": "WriterInterface",
-            "summary": "Interface\u0020para\u0020salvar\u0020o\u0020data\u0020frame\u0020em\u0020algum\u0020formato.",
-            "url": "classes/PTK-DataFrame-Writer-WriterInterface.html"
-        },                {
-            "fqsen": "\\PTK\\DataFrame\\Writer\\WriterInterface\u003A\u003Awrite\u0028\u0029",
-            "name": "write",
-            "summary": "",
-            "url": "classes/PTK-DataFrame-Writer-WriterInterface.html#method_write"
-        },                {
             "fqsen": "\\PTK\\DataFrame\\Writer\\PDOWriter",
             "name": "PDOWriter",
             "summary": "Escreve\u0020o\u0020data\u0020frame\u0020em\u0020um\u0020banco\u0020de\u0020dados\u0020relacional\u0020utilizando\u0020PDO.",
@@ -455,6 +445,16 @@ Search.appendIndex(
             "name": "stmt",
             "summary": "",
             "url": "classes/PTK-DataFrame-Writer-PDOWriter.html#property_stmt"
+        },                {
+            "fqsen": "\\PTK\\DataFrame\\Writer\\WriterInterface",
+            "name": "WriterInterface",
+            "summary": "Interface\u0020para\u0020salvar\u0020o\u0020data\u0020frame\u0020em\u0020algum\u0020formato.",
+            "url": "classes/PTK-DataFrame-Writer-WriterInterface.html"
+        },                {
+            "fqsen": "\\PTK\\DataFrame\\Writer\\WriterInterface\u003A\u003Awrite\u0028\u0029",
+            "name": "write",
+            "summary": "",
+            "url": "classes/PTK-DataFrame-Writer-WriterInterface.html#method_write"
         },                {
             "fqsen": "\\",
             "name": "\\",
