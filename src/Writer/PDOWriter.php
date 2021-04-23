@@ -145,10 +145,12 @@ class PDOWriter implements WriterInterface
         }
 
         $sql .= ';';
-
+        
+        // @codeCoverageIgnoreStart
         if ($pdo->exec($sql) === false) {
             return false;
         }
+        // @codeCoverageIgnoreEnd
         return true;
     }
 }

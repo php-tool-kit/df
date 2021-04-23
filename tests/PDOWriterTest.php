@@ -79,7 +79,7 @@ class PDOWriterTest extends TestCase
         $pdo = new PDO("sqlite:tests/assets/cache/example.sqlite");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $this->assertTrue(PDOWriter::createSQliteTable($df, $pdo, 'df'));
+        $this->assertTrue(PDOWriter::createSQliteTable($df, $pdo, 'df', 'id', false));
         $stmt = $pdo->query("SELECT name FROM sqlite_master WHERE type='table' AND name='df'");
         $this->assertEquals(1, $stmt->columnCount());
     }
