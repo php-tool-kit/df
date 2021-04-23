@@ -86,7 +86,6 @@ class PDOWriterTest extends TestCase
 
     public function testCreateTableInvalidTypeFails()
     {
-        $this->markTestSkipped("Este teste não deve rodar em virtude da solução inicial dada na issue #8");
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
         $df->appendCol('itsFails', [null, null, null]);

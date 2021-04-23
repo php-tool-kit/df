@@ -158,6 +158,8 @@ class DataFrame implements Iterator
      * Identifica os tipos predominantes de cada coluna.
      *
      * Usa o método DataFrame::detectColTypes() e considera predominante o tipo com mais linhas para cada coluna.
+     * 
+     * Qualquer referência a tipos NULL será removida. Ou seja, se existirem valores NULL na coluna, eles serão desconsiderados.
      *
      * @return array<mixed> Retorna um array onde o nome da coluna é a chave e o tipo predominante é o valor.
      */
@@ -167,6 +169,12 @@ class DataFrame implements Iterator
         $result = [];
         foreach ($colNames as $name) {
             $colTypes = $this->detectColTypes($name);
+            
+            //retira eventuais valores de tipo NULL
+            $hasNull = array_search(NULL, $colTypes, true);
+            if($hasNull !== false){
+                unset($colTypes[$hasNull]);
+            }
             $result[$name] = array_key_first($colTypes);
         }
         return $result;
