@@ -113,6 +113,8 @@ class PDOWriter implements WriterInterface
         foreach ($colTypes as $type) {
             switch ($type) {
                 case 'string':
+                case 'NULL':
+                case 'null':
                     $dbTypes[] = 'TEXT';
                     break;
                 case 'int':
