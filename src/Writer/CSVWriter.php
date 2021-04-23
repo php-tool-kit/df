@@ -34,11 +34,12 @@ use PTK\Exception\ResourceException\InvalidResourceException;
  *
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
-class CSVWriter implements WriterInterface
-{
+class CSVWriter implements WriterInterface {
+
     private DataFrame $df;
     private string $separator = '';
     private bool $hasHeader = true;
+
     /** @phpstan-ignore-next-line ignora a exigência de declarar um tipo */
     private $handle;
 
@@ -50,10 +51,10 @@ class CSVWriter implements WriterInterface
      * @param bool $hasHeader
      */
     public function __construct(
-        DataFrame $df,
-        $handle,
-        string $separator,
-        bool $hasHeader
+            DataFrame $df,
+            $handle,
+            string $separator,
+            bool $hasHeader
     ) {
         $this->df = $df;
         $this->handle = $handle;
@@ -61,16 +62,14 @@ class CSVWriter implements WriterInterface
         $this->hasHeader = $hasHeader;
     }
 
-    public function write(): void
-    {
+    public function write(): void {
         if ($this->hasHeader) {
             fputcsv($this->handle, $this->df->getColNames(), $this->separator);
         }
 
-        $buffer = $this->df->current();
-        while ($buffer !== false) {
+        foreach ($this->df as $buffer) {
             fputcsv($this->handle, $buffer, $this->separator);
-            $buffer = $this->df->next();
         }
     }
+
 }

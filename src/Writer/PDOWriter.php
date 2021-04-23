@@ -74,18 +74,15 @@ class PDOWriter implements WriterInterface
         }
         $this->df->setColNames(...$paramNames);
 
-        $data = $this->df->current();
-        while ($data !== false) {
-//            print_r($data);
-            try {
-                $this->stmt->execute($data);
-                // @codeCoverageIgnoreStart
-            } catch (PDOException $ex) {
+     foreach ($this->df as $data){
+         try{
+             $this->stmt->execute($data);
+             // @codeCoverageIgnoreStart
+         } catch (PDOException $ex) {
                 throw $ex;
                 // @codeCoverageIgnoreEnd
-            }
-            $data = $this->df->next();
-        }
+         }
+     }
     }
 
     /**

@@ -805,20 +805,20 @@ class DataFrameTest extends TestCase
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
-
+        $df->next();
         $this->assertEquals([
             'id' => 2,
             'name' => 'Mary',
             'age' => 21,
             'sex' => 'F'
-        ], $df->next());
+        ], $df->current());
+        $df->next();
         $this->assertEquals([
             'id' => 3,
             'name' => 'Paul',
             'age' => 58,
             'sex' => 'M'
-        ], $df->next());
-        $this->assertFalse($df->next());
+        ], $df->current());
     }
 
     public function testPrevious()
@@ -827,19 +827,20 @@ class DataFrameTest extends TestCase
         $df = new DataFrame($reader);
         $df->next();
         $df->next();
+        $df->previous();
         $this->assertEquals([
             'id' => 2,
             'name' => 'Mary',
             'age' => 21,
             'sex' => 'F'
-        ], $df->previous());
+        ], $df->current());
+        $df->previous();
         $this->assertEquals([
             'id' => 1,
             'name' => 'John',
             'age' => "33",
             'sex' => 'M'
-        ], $df->previous());
-        $this->assertFalse($df->previous());
+        ], $df->current());
     }
 
     public function testFirst()
@@ -848,36 +849,39 @@ class DataFrameTest extends TestCase
         $df = new DataFrame($reader);
         $df->next();
         $df->next();
+        $df->first();
         $this->assertEquals([
             'id' => 1,
             'name' => 'John',
             'age' => "33",
             'sex' => 'M'
-        ], $df->first());
+        ], $df->current());
     }
 
     public function testLast()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
+        $df->last();
         $this->assertEquals([
             'id' => 3,
             'name' => 'Paul',
             'age' => 58,
             'sex' => 'M'
-        ], $df->last());
+        ], $df->current());
     }
 
     public function testGoToLineSuccess()
     {
         $reader = new ArrayReader($this->arraySample);
         $df = new DataFrame($reader);
+        $df->goToLine(1);
         $this->assertEquals([
             'id' => 2,
             'name' => 'Mary',
             'age' => 21,
             'sex' => 'F'
-        ], $df->goToLine(1));
+        ], $df->current());
     }
 
     public function testGoToLineFails()

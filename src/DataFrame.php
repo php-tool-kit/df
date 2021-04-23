@@ -28,6 +28,7 @@ namespace PTK\DataFrame;
 
 use Exception;
 use InvalidArgumentException;
+use Iterator;
 use LengthException;
 use OutOfBoundsException;
 use PTK\DataFrame\Exception\InvalidColumnException;
@@ -36,7 +37,6 @@ use PTK\DataFrame\Reader\ArrayReader;
 use PTK\DataFrame\Reader\EmptyDataFrameReader;
 use PTK\DataFrame\Reader\ReaderInterface;
 use RangeException;
-
 use function array_key_first;
 use function sizeof;
 
@@ -49,7 +49,7 @@ use function sizeof;
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
-class DataFrame
+class DataFrame implements Iterator
 {
 
     /**
@@ -757,69 +757,64 @@ class DataFrame
     }
 
     /**
-     * Avança o ponteiro do data frame em uma linha e retorna ela.
+     * Avança o ponteiro do data frame em uma linha.
      *
-     * @return false|array<mixed> Retorna a linha atual ou false se não houverem mais linhas para retornar.
+     * @return void.
      */
-    public function next()
+    public function next(): void
     {
-        return next($this->df);
+        next($this->df);
     }
 
     /**
-     * Retrocede o ponteiro do data frame uma linha e retorna ela.
+     * Retrocede o ponteiro do data frame uma linha.
      *
-     * @return false|array<mixed> Retorna a linha atual ou false se não houverem mais linhas para retornar.
+     * @return void.
      */
-    public function previous()
+    public function previous(): void
     {
-        return prev($this->df);
+        prev($this->df);
     }
 
     /**
-     * Coloca o ponteiro do data frame na primeira linha e retorna ela.
+     * Coloca o ponteiro do data frame na primeira linha.
      *
-     * @return false|array<mixed> Retorna a linha atual ou false no caso de array vazio.
+     * @return void.
      */
-    public function first()
+    public function first(): void
     {
         reset($this->df);
-        return current($this->df);
     }
 
     /**
      * Coloca o ponteiro na última linha do data frame e retorna ela.
      *
-     * @return false|array<mixed> Retorna a linha atual ou false no caso de array vazio.
+     * @return void
      */
-    public function last()
+    public function last(): void
     {
-        return end($this->df);
+        end($this->df);
     }
 
     /**
-     * Coloca o ponteiro do data frame na linha especificada e retorna ela.
+     * Coloca o ponteiro do data frame na linha especificada.
      *
      * @param int $line
-     * @return array<mixed>
+     * @return void
      */
-    public function goToLine(int $line): array
+    public function goToLine(int $line): void
     {
         if (!key_exists($line, $this->df)) {
             throw new OutOfBoundsException("$line");
         }
 
         reset($this->df);
-        foreach ($this->df as $index => $l) {
-            if ($index === $line) {
-                return $l;
+        while($this->valid()) {
+            if ($this->key() === $line) {
+                break;
             }
+            $this->next();
         }
-
-        // @codeCoverageIgnoreStart
-        // em nenhuma situação vai chegar nesta linha
-        return [];
-        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -924,5 +919,33 @@ class DataFrame
         }
 
         return $this;
+    }
+    
+    /**
+     * Resseta o ponteiro do array. Igual a DataFrame::first()
+     * 
+     * @return void
+     */
+    public function rewind(): void
+    {
+        reset($this->df);
+    }
+    
+    /**
+     * Verifica se a posição atual do ponteiro é válida, ou seja, aponta para um item do array.
+     * 
+     * @return bool
+     */
+    public function valid(): bool
+    {
+       return (bool) current($this->df);
+    }
+    
+    /**
+     * Retorna a chave da linha atual.
+     */
+    public function key()
+    {
+        return key($this->df);
     }
 }
