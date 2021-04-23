@@ -32,7 +32,6 @@ use PTK\DataFrame\Reader\ArrayReader;
  * Arquivo para testes durante o desenvolvimento.
  */
 
-echo gettype(fopen('tests/assets/example.csv', 'r'));exit();
 require 'vendor/autoload.php';
 try {
     $reader = new ArrayReader(
@@ -47,23 +46,21 @@ try {
             'id' => 2,
             'name' => 'Mary',
             'age' => 21,
-            'sex' => 'F'
+            'sex' => NULL
         ],
         [
             'id' => 3,
             'name' => 'Paul',
             'age' => 58,
-            'sex' => 'M'
+            'sex' => NULL
         ]
             ]
     );
 
     $df = new DataFrame($reader);
 
-    $df->setColNames('id', 'nome', 'age', 'sexo');
-//    $df->changeColName('name', 'nome');
             
-    print_r($df->getColNames());
+    print_r($df->getColTypes());
 }
 catch (InvalidDataFrameException $ex){
     echo $ex->getTraceAsString();

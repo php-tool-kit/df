@@ -171,10 +171,11 @@ class DataFrame implements Iterator
             $colTypes = $this->detectColTypes($name);
             
             //retira eventuais valores de tipo NULL
-            $hasNull = array_search(NULL, $colTypes, true);
-            if($hasNull !== false){
-                unset($colTypes[$hasNull]);
+            if(key_exists('NULL', $colTypes)){
+                unset($colTypes['NULL']);
             }
+            
+            
             $result[$name] = array_key_first($colTypes);
         }
         return $result;
