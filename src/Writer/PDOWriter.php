@@ -124,7 +124,8 @@ class PDOWriter implements WriterInterface
                     $dbTypes[] = 'REAL';
                     break;
                 default:
-                    throw new InvalidArgumentException($type);
+//                    throw new InvalidArgumentException($type);
+                    $dbTypes[] = 'TEXT';
             }
         }
 
