@@ -26,19 +26,19 @@
 
 namespace PTK\DataFrame;
 
-use Exception;
-use InvalidArgumentException;
 use Iterator;
+use Exception;
+use RangeException;
+use function sizeof;
 use LengthException;
 use OutOfBoundsException;
+use function array_key_first;
+use InvalidArgumentException;
+use PTK\DataFrame\Reader\ArrayReader;
+use PTK\DataFrame\Reader\ReaderInterface;
+use PTK\DataFrame\Reader\EmptyDataFrameReader;
 use PTK\DataFrame\Exception\InvalidColumnException;
 use PTK\DataFrame\Exception\InvalidDataFrameException;
-use PTK\DataFrame\Reader\ArrayReader;
-use PTK\DataFrame\Reader\EmptyDataFrameReader;
-use PTK\DataFrame\Reader\ReaderInterface;
-use RangeException;
-use function array_key_first;
-use function sizeof;
 
 /**
  * Implementa uma "casca" para o array implementando vários métodos úteis para trabalhar com
@@ -760,7 +760,7 @@ class DataFrame implements Iterator
      *
      * @return false|array<mixed> Retorna a linha atual ou false se não houverem mais linhas para retornar.
      */
-    public function current()
+    public function current(): mixed
     {
         return current($this->df);
     }
@@ -953,7 +953,7 @@ class DataFrame implements Iterator
     /**
      * Retorna a chave da linha atual.
      */
-    public function key()
+    public function key(): mixed
     {
         return key($this->df);
     }
